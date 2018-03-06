@@ -9,7 +9,9 @@
  *  @since   05-03-2018
  *
  ******************************************************************************/
+
 package com.bridgeit.functional;
+
 import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 

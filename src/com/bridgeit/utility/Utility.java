@@ -373,6 +373,178 @@ public class Utility
 	 */
 	
 	/**
+	 * function ensure that the two strings are anagram 
+	 * or not and print the result according to it.
+	 * 
+	 * @param array1 to store the char conversion of first string
+	 * @param array3 is initially an empty char array
+	 * @param word3 is the string conversion of character array
+	 * 
+	 */
+	public static void checkAnagram(String word1,String word2) 
+	{
+		
+		char[] array1 = word1.toCharArray();
+		char[] array3 = new char[word2.length()];
+		
+		for(int i=0;i<word2.length();i++) 
+		{
+			for(int j=0;j<array1.length;j++) 
+			{
+				if(word2.charAt(i)==array1[j]) 
+				{
+					array3[j]=word2.charAt(i);
+				}
+			}
+		}
+		
+		String word3 = new String(array3);
+		//System.out.println(word3);
+		if(word1.equalsIgnoreCase(word3)) 
+		{
+			System.out.println(word1+" and "+word2+" are anagram..!");
+		}
+		else 
+		{
+			System.out.println(word1+" and "+word2+" are not anagram..!");
+		}
+	}
+	
+	/**
+	 * sorts the character array using bubble sort algorithm
+	 * 
+	 */
+	
+	public static void bubbleSorting(char[] arr,int n) 
+	{
+		char temp;
+		for(int j=0;j<=n-2;j++) 
+		{
+			for(int i=0;i<=n-2;i++) 
+			{
+				if(arr[i]>arr[i+1]) 
+				{
+					temp=arr[i];
+					arr[i]=arr[i+1];
+					arr[i+1]=temp;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * function find the prime number is palindrome or not 
+	 *  
+	 *@return true if the prime number is palindrome else return 
+	 *false 
+	 */
+			public static boolean primePalindromeFinder(int primeNumber) 
+			{
+				String temp = "";
+				String original = temp+primeNumber;
+				//System.out.println(original);
+				
+				String empty = "";
+				for(int j=original.length()-1;j>=0;j--) 
+				{
+					empty=empty+original.charAt(j);
+				}
+				
+				if(empty.equals(original)) 
+				{
+					return true;
+				}	
+				return false;
+			}
+			/**
+			 *function find the prime number is anagram or not
+			 *
+			 *@return true if anagram else return false 
+			 */
+			
+			public static boolean primeAnagramFinder(int num1,int num2) 
+			{
+				//converting numbers into string
+				String number1 = Integer.toString(num1);
+				String number2 = Integer.toString(num2);
+				
+				//converting into char array
+				char[] firstno = number1.toCharArray();
+				char[] secondno = number2.toCharArray();
+				
+				//sorting
+				bubbleSorting(firstno,firstno.length);
+				bubbleSorting(secondno,secondno.length);
+				
+				int count=firstno.length;
+				for(int i=0,j=0;i<firstno.length;i++,j++) 
+				{
+					if(firstno[i]-secondno[j]==0) 
+					{
+						count--;
+					}
+				}
+				if(count==0) 
+				{
+					return true;
+				}
+				return false;
+			}
+
+	
+	/**
+	 *function sort the array based on insertion sort algorithm 
+	 * 
+	 * @param value to hold the current value of the array
+	 */
+	
+	public static<E extends Comparable<E>> void insertionSorting(E[] unsorted,int n) 
+	{
+		for(int i=1;i<=unsorted.length-1;i++) 
+		{
+			E value = unsorted[i];
+			int hole = i;
+			
+			while(hole>0 && unsorted[hole-1].compareTo(value)>0) 
+			{
+				unsorted[hole]=unsorted[hole-1];
+				hole--;
+			}
+			unsorted[hole]=value;
+		}
+		for(E ele:unsorted) 
+		{
+			System.out.print(ele+" ");
+		}
+		System.out.println();
+	}
+	
+	/**
+	 * function sort the array based on bubble sort algorithm
+	 * 
+	 */
+	public static<E extends Comparable<E>> void bubbleSort(E[] unsorted,int n) 
+	{
+		for(int j=0;j<n-1;j++) 
+		{
+			for(int i=0;i<=n-2;i++) 
+			{
+				if(unsorted[i].compareTo(unsorted[i+1])>0) 
+				{
+					E temp = unsorted[i];
+					unsorted[i]=unsorted[i+1];
+					unsorted[i+1]=temp;
+				}
+			
+			}
+		}
+		for(E ele: unsorted) 
+		{
+			System.out.print(ele+" ");
+		}
+	}
+	
+	/**
 	 * function mergeSort merge the two unsorted array into a third array
 	 * 
 	 * @param i holds the index of left array

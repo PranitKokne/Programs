@@ -15,7 +15,7 @@ package com.bridgeit.functional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import com.bridgeit.utility.*;
+import com.bridgeit.utility.Utility;
 public class Factors
 {
 	/*
