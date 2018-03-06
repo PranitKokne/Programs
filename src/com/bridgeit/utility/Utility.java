@@ -3,8 +3,17 @@ package com.bridgeit.utility;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import com.bridgeit.datastructure.Customer;
+import com.bridgeit.datastructure.Queue;
+
 public class Utility 
 {
+	
+	public  Scanner takeInput() 
+	{
+		Scanner scanner = new Scanner(System.in);
+		return scanner;
+	}
 	
 	/*
 	 * functional programs
@@ -490,6 +499,62 @@ public class Utility
 				}
 				return false;
 			}
+	/**
+	 * function performs the binary search operation on integer array
+	 */
+			public static int binarySearch(int[] sort, int n,int fe) 
+			{
+				int start = 0;
+				int end = n-1;
+				while(start<=end) 
+				{
+					int mid = (start+end)/2;
+					if(sort[mid]==fe) 
+					{
+						return mid;
+					}
+					else if(sort[mid]>fe) 
+					{
+						end = mid -1;
+					}
+					else 
+					{
+						start = mid+1;
+					}
+				}
+				return -1;
+			}
+	/**
+	 * function performs the binary search operation on string array	
+	 * 
+	 * @param sort sorted array provided by the user
+	 * @param n size of sorted array
+	 * @param fe the element the user want to search in the sorted array
+	 * @return the index of the element of the if it is present in the array 
+	 * 			else returns -1
+	 */
+			public static int binarySearchForString(String[] sort, int n,String fe) 
+			{
+				int start = 0;
+				int end = n-1;
+				while(start<=end) 
+				{
+					int mid = (start+end)/2;
+					if(sort[mid].equalsIgnoreCase(fe)) 
+					{
+						return mid;
+					}
+					else if(sort[mid].compareTo(fe)<0) 
+					{
+						start = mid+1;
+					}
+					else 
+					{
+						end = mid -1;
+					}
+				}
+				return -1;
+			}
 
 	
 	/**
@@ -762,6 +827,184 @@ public class Utility
 		}
 		System.out.println("square root of "+c+" : "+t);
 		
+	}
+	/**
+	 *function convert a decimal number into a 
+	 *binary number and print it to the console
+	 * 
+	 */
+	
+	public static void toBinary(int number) 
+	{
+		int[] binary = new int[32];
+		int indexPosition = 31;
+		
+			while(number/2!=0) 
+			{
+				binary[indexPosition]=number%2;
+				number=number/2;
+				indexPosition--;
+			}
+			binary[indexPosition]=1;
+	
+		
+		for(int ele:binary) 
+		{
+			System.out.print(ele);
+		}
+	}
+	
+	/**
+	 *function convert the decimal number into 
+	 *binary number 
+	 * 
+	 */
+	
+	//16 decimal to binary then nibble swapping then binary to decimal and then power of 2
+		public static void binaryConversion(int number) 
+		{
+			int[] binary = new int[8];
+			int indexPosition = 7;
+			
+				while(number/2!=0) 
+				{
+					binary[indexPosition]=number%2;
+					number=number/2;
+					indexPosition--;
+				}
+				binary[indexPosition]=1;
+		
+			//binary array contains the binary number....
+			for(int ele:binary) 
+			{
+				System.out.print(ele);
+			}
+			nibbleSwapping(binary);
+		}
+		/**
+		 * function swaps the nibble of a binary number
+		 * @param binary the binary number to swap the nibble
+		 */
+		public static void nibbleSwapping(int[] binary) 
+		{
+			String temp="";
+			String temp1="";
+			
+			//traversing the binary array
+			for(int i=0;i<binary.length;i++) 
+			{
+				if(i<4) 
+				{
+					temp=temp+binary[i];
+				}
+				else 
+				{
+					temp1=temp1+binary[i];
+				}
+			}
+			System.out.println("\n"+"first nibble : "+temp);
+			System.out.println("second nibble : "+temp1);
+			//swapping the nibbles 
+			String temp2 = temp1.concat(temp);
+			System.out.println(temp2);
+			String temp3 = 5+temp2;
+			
+			//binary number after...
+			int afterNibbleSwapping = Integer.parseInt(temp3);
+			
+			//System.out.println(afterNibbleSwapping);
+			
+			/*for(int i=0;i<temp3.length();i++) 
+			{
+				if(temp3.charAt(i)!='5') 
+				{
+					System.out.print(temp3.charAt(i));
+				}
+			}*/
+			//converting swapped nibble to decimal and finding it is power of 2 or not
+			powerofTwo(temp2);
+		}
+		/**
+		 * function checks that the decimal number provided by the user 
+		 * is the power of 2 or not.
+		 * 
+		 * @param number decimal number in terms of String provided by user
+		 */
+		public static void powerofTwo(String number) 
+		{
+			int[] binaryNumber = new int[number.length()];
+			for(int i=0;i<number.length();i++) 
+			{
+				binaryNumber[i]=Character.getNumericValue(number.charAt(i));
+			}
+			/*for(int ele:binaryNumber) 
+			{
+				System.out.print(ele+" ");
+			}*/
+			
+			int j=0;
+			int total=0;
+			for(int i=(binaryNumber.length-1);i>=0;i--) 
+			{
+				int mul =(int)Math.pow(2, j);
+				total=total+(binaryNumber[i]*mul);
+				j++;
+			}
+			System.out.println(total);
+			
+			short[] powerofTwo = new short[]{1,2,4,8,16,32,64,128};
+			for(int i=0;i<powerofTwo.length;i++) 
+			{
+				if(total==powerofTwo[i])
+					System.out.println("The resultant number is a power of 2 ");
+			}
+		}
+
+	
+	/*
+	 * Data structure
+	 * 
+	 */
+	
+	/**
+	 * function deposit return the balance of current customer
+	 * after performing the deposit operation
+	 */
+	double balance;
+	public double deposit(Customer[] customer,double amount,int index) 
+	{
+		balance=customer[index].getmInitialBalance()+amount;
+		customer[index].setmInitialBalance(balance);
+		return customer[index].getmInitialBalance();
+	}
+
+	/**
+	 * function withdraw return the balance of current customer
+	 * after performing the withdraw operation and it also check 
+	 * the condition of minimum balance
+	 */
+	public double withdraw (Customer[] customer,double amount,int index) 
+	{
+		if(customer[index].getmInitialBalance()>=amount)
+		{
+			balance=customer[index].getmInitialBalance()-amount;
+			customer[index].setmInitialBalance(balance);
+			return customer[index].getmInitialBalance();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	/**
+	 * function checkBalance return the current balance of 
+	 * current customer
+	 * 
+	 */
+	public double checkBalance(Customer[] customer,int index) 
+	{
+		return customer[index].getmInitialBalance();
 	}
 
 }
