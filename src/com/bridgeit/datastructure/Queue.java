@@ -38,7 +38,8 @@ public class Queue
 		Utility util = new Utility();
 		
 		System.out.print("Enter the size of Queue : ");
-		int size = util.takeInput().nextInt();
+		int size = util.integerInput();
+		
 		
 		Customer[] customer = new Customer[size];
 	 
@@ -52,13 +53,13 @@ public class Queue
 		{
 			
 			System.out.print("Customer "+(count+1)+" Enter your name : ");
-			custName = util.takeInput().nextLine();
+			custName = util.inputString();
 			
 			System.out.print("Enter your contact number : ");
-			contactNumber = util.takeInput().nextLong();
+			contactNumber = util.longInput();
 			
 			System.out.print("Enter the initial balance : ");
-			balance = util.takeInput().nextDouble();
+			balance = util.doubleInput();
 			
 			customer[count]=new Customer(balance,custName,contactNumber);
 			
@@ -86,19 +87,19 @@ public class Queue
 			while(flag) 
 			{
 				System.out.println(customer[j].getmCustName()+" enter your choice : ");
-				int choice = util.takeInput().nextInt();
+				int choice = util.integerInput();
 				
 				switch(choice) 
 				{
 				case 1:
 					System.out.print("Enter the amount you want to deposit : ");
-					double deposit = util.takeInput().nextDouble();
+					double deposit = util.doubleInput();
 					System.out.println("balance after deposit operation : "+util.deposit(customer,deposit,j));
 					break;
 					
 				case 2:
 					System.out.print("Enter the amount you want to withdraw : ");
-					double withdraw = util.takeInput().nextDouble();
+					double withdraw = util.doubleInput();
 					if(util.withdraw(customer,withdraw,j)>0)
 						System.out.println("balance after withdraw operation : "+customer[j].getmInitialBalance());
 					else

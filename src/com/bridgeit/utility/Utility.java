@@ -6,14 +6,100 @@ import java.util.Scanner;
 import com.bridgeit.datastructure.Customer;
 import com.bridgeit.datastructure.Queue;
 
+/**
+ * @author bridgeit
+ *
+ */
+/**
+ * @author bridgeit
+ *
+ */
 public class Utility 
 {
-	
-	public  Scanner takeInput() 
+	Scanner scanner;
+	public Utility() 
 	{
-		Scanner scanner = new Scanner(System.in);
-		return scanner;
+		scanner = new Scanner(System.in);
 	}
+	
+	public int integerInput() 
+	{
+		try 
+		{
+			return scanner.nextInt();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		return 0;
+	}
+	
+	public long longInput() 
+	{
+		try 
+		{
+			return scanner.nextLong();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		return 0;
+	}
+	
+	public double doubleInput() 
+	{
+		try 
+		{
+			return scanner.nextDouble();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		return 0.0;
+	}
+	
+	public float floatInput() 
+	{
+		try 
+		{
+			return scanner.nextFloat();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		return 0.0f;
+	}
+	
+	 public String inputStringLine() 
+	 {
+		 try 
+		 {
+			 return scanner.nextLine();
+		 }
+		 catch(Exception e) 
+		 {
+			 System.out.println(e.toString());
+		 }
+		 return null;
+	 }
+	 
+	 public String inputString() 
+	 {
+		 try 
+		 {
+			 return scanner.next();
+		 }
+		 catch(Exception e) 
+		 {
+			 System.out.println(e.toString());
+		 }
+		 return null;
+	 }
+
 	
 	/*
 	 * functional programs
@@ -202,6 +288,55 @@ public class Utility
 		System.out.println("Losing percentage : "+lossingPercentage);
 		
 	}
+	
+	/**
+	 *function generates the distinct coupon numbers using the random 
+	 *function of Math class.
+	 *
+	 *@param count to keep the count of distinct coupon numbers
+	 *@param randomNumber to keep the count of generated random numbers
+	 */
+	public static void couponGenerator(int distinctcoupons,int[] coupons) 
+	{
+		int count = 0;
+		
+		int randomNumbers = 0;
+		
+		while(distinctcoupons!=0) 
+		{
+			int generatedNumber = (int)(15*Math.random());
+			randomNumbers++;
+			if(count==0) 
+			{
+				coupons[count]=generatedNumber;
+				count++;
+				distinctcoupons--;
+			}
+			else if(count<coupons.length)
+			{
+				int duplicate = 0;
+				for(int i=0;i<count;i++) 
+				{
+					if(coupons[i]==generatedNumber) 
+					{
+						duplicate++;
+					}
+				}
+				if(duplicate==0) 
+				{
+					coupons[count]=generatedNumber;
+					count++;
+					distinctcoupons--;
+				}
+			}
+		}
+		System.out.println("total random numbers generated are : "+randomNumbers);
+		for(int coupon : coupons) 
+		{
+			System.out.print(coupon+" ");
+		}
+	}
+
 
 	/**
 	 * function prints the two dimensional array using PrintWriter class 
@@ -745,20 +880,19 @@ public class Utility
 	/**
 	 *function takes the day as input and print the day of the week that it
 	 *falls on
+	 * @return 
 	 *
 	 */
-	public static void dayOfWeek(int month,int day,int year) 
+	public static int dayOfWeek(int month,int day,int year) 
 	{
 		int y0 = year-((14-month)/12);
 		int x =( y0 + (y0/4)-(y0/100) + (y0/400));
 		int m0 = (month + 12*((14-month)/12)-2);
 		int d0 = ((day + x + 31*m0/12)%7);
 		
-		
+		return d0;
 
-		String[] days = new String[]{"sunday","monday","tuesday","wednesday","thrusday","friday","saturday"};
 		
-		System.out.println("day : "+days[d0]);
 	}
 	
 	/**
@@ -965,7 +1099,9 @@ public class Utility
 	 * Data structure
 	 * 
 	 */
-	
+		
+	/***************   QUEUE  ****************************/
+		
 	/**
 	 * function deposit return the balance of current customer
 	 * after performing the deposit operation
@@ -1007,4 +1143,168 @@ public class Utility
 		return customer[index].getmInitialBalance();
 	}
 
+	/*********** STACK **********************************/
+	/**
+	 * function convert a string into char array
+	 * @param input string provided by user
+	 * @return char array
+	 */
+	public static char[] intoCharArray(String input) 
+	{
+		char[] output = input.toCharArray();
+		
+		return output;
+	}
+	
+	
+	/**function call the push and pop methods based on the character 
+	 * retrieved from the array
+	 * 
+	 * @param stack the stack is the data structure used to store a data
+	 * @param top points to the stacks index
+	 * @param expression char passed by the user
+	 * @return the pointer to the stack
+	 * 
+	 */
+	public static int stackOperation(char[] stack,int top, char[] expression) 
+	{
+		
+		for(int i=0;i<expression.length;i++) 
+		{
+			if(expression[i]=='(') 
+			{
+				top++;
+				push(stack, expression[i],top);
+			}
+			else if(expression[i]==')') 
+			{
+				try 
+				{
+					pop(stack,' ',top);
+					top--;
+					
+				}catch(ArrayIndexOutOfBoundsException exception) 
+				{
+					top--;
+				}
+			}
+			
+		}
+		
+		return top;
+	}
+	
+	/**
+	 * function insert an element into the stack
+	 * @param stack the stack is the data structure used to store a data
+	 * @param expression char passed by the user 
+	 * @param top points to the stacks index
+	 */
+	public static void push(char[] stack,char expression , int top) 
+	{
+		stack[top]=expression;
+	}
+	/**
+	 * function removes an element from the stack
+	 * @param stack the stack is the data structure used to store a data
+	 * @param expression char passed by the user
+	 * @param top points to the stacks index
+	 */
+	public static void pop(char[] stack,char expression,int top) 
+	{
+		stack[top]=expression;
+	}
+	
+	
+	/***************** Calendar ***********************************/
+	
+	/**
+	 * function check whether the year is a leap year or not
+	 * @param year the year represent the 4 digit value
+	 * @return true if the year is leap else false
+	 */
+	public static boolean yearType(int year) 
+	{
+		if(year%400==0 || year%4==0) 
+		{
+			return true;
+		}
+		return false;
+	}
+	/**
+	 * function returns the number of days in a month
+	 * @param month the month ranges from 1 to 12 
+	 * @return the days present in a month
+	 */
+	public static int leapYear(int month) 
+	{
+		int[] daysofMonth = {31,29,31,30,31,30,31,31,30,31,30,31};
+		
+		return daysofMonth[month-1];
+	}
+	/**
+	 * function returns the number of days in a month
+	 * @param month the month ranges from 1 to 12 
+	 * @return the days present in a month
+	 */
+	public static int normalYear(int month) 
+	{
+		int[] daysofMonth = {31,28,31,30,31,30,31,31,30,31,30,31};
+		
+		return daysofMonth[month-1];
+	}
+	public static void calendar(int startDay,int numberofDays,int year,int month) 
+	{
+		String[] days = {"S","M","T","W","Th","F","S"};
+		String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+		System.out.println(months[month-1]+"  "+year);
+		
+		int date = 1;
+		
+		for(int i=0;i<7;i++) 
+		{
+			for(int j=0;j<7;j++) 
+			{
+				if(numberofDays>=date) 
+				{
+					if(i==0 && j>=0) 
+					{
+						System.out.print(days[j]+"     ");
+					}
+					else if(i==1 && j>=startDay) 
+					{
+						if(j==3)
+						{
+							System.out.print(date+"     ");
+						}
+						else
+						{
+							System.out.print(date+"     ");
+						}
+						date++;
+					}
+					else if(i>=2) 
+					{
+						if(j==3)
+						{
+							System.out.print(date+"     ");
+						}
+						else
+						{
+							System.out.print(date+"     ");
+						}
+						date++;
+					}
+					else 
+					{
+						System.out.print("     ");
+					}
+					
+				}
+			}
+			System.out.println();
+		}
+		
+		
+	}
 }

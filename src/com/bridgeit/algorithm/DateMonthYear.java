@@ -23,6 +23,7 @@ public class DateMonthYear
 	 */
 	public static void main(String[] args) 
 	{
+		int d0=-1;
 		Scanner scanner = new Scanner(System.in);
 		boolean flag = true;
 		
@@ -39,14 +40,20 @@ public class DateMonthYear
 			if(m<=12 && d<=31 && Integer.toString(y).length()==4)
 			{
 				//using the static function of Utility
-				Utility.dayOfWeek(m,d,y);
+				d0=Utility.dayOfWeek(m,d,y);
 				flag=false;
 			}
 			else 
 			{
 				System.out.println("Invalid day or month or year :");
 			}
+			
 		}
+		
+		String[] days = new String[]{"sunday","monday","tuesday","wednesday","thrusday","friday","saturday"};
+		
+		System.out.println("day : "+days[d0]);
+
 	}
 
 }
