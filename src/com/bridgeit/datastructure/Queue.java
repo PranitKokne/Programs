@@ -19,10 +19,10 @@ import com.bridgeit.utility.Utility;
 public class Queue 
 {
 	/*
-	 * main function takes size of the queue as a input
-	 * and takes the customer details as a input and 
+	 * main function takes size of the queue and 
+	 * the customer details as a input and 
 	 * provides each customer the various services such as 
-	 * deposit withdraw and check balance.
+	 * deposit the money withdraw the money and check balance.
 	 *  
 	 */
 

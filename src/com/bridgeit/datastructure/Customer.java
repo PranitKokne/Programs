@@ -1,7 +1,7 @@
 /******************************************************************************
  *  
  *
- *  Purpose:It is a simple pojo class of Customer.
+ *  Purpose:It is a simple plain old java object class of Customer.
  *
  *  @author  Pranit_Kokne
  *  @version 1.0

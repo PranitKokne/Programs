@@ -1,19 +1,15 @@
 package com.bridgeit.utility;
 
 import java.io.PrintWriter;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import com.bridgeit.datastructure.Customer;
 import com.bridgeit.datastructure.Queue;
 
-/**
- * @author bridgeit
- *
- */
-/**
- * @author bridgeit
- *
- */
+
 public class Utility 
 {
 	Scanner scanner;
@@ -213,12 +209,12 @@ public class Utility
 		System.out.println(N+"th harmonic value :"+total);
 	}
 	
+	
 	/**
-	 *checking the provided number is prime or not
-	 *if prime return the number 
-	 *else return the -1 indicating it is not a prime number 
+	 *checking the provided number is prime or not 
 	 * 
-	 * 
+	 * @param number to check whether it is prime or not
+	 * @return the number if the number is prime else -1
 	 */
 	public static int findPrime(int number) 
 	{
@@ -1187,10 +1183,8 @@ public class Utility
 				{
 					top--;
 				}
-			}
-			
+			}	
 		}
-		
 		return top;
 	}
 	
@@ -1254,57 +1248,102 @@ public class Utility
 		return daysofMonth[month-1];
 	}
 	public static void calendar(int startDay,int numberofDays,int year,int month) 
-	{
-		String[] days = {"S","M","T","W","Th","F","S"};
+	{	
+		int[][] calendar = new int[6][7];
+		
+		int dayOne = 1;
+		
+		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 		String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
 		System.out.println(months[month-1]+"  "+year);
 		
-		int date = 1;
+		for(String day : days) 
+		{
+			System.out.print(day+"    ");
+		}
 		
-		for(int i=0;i<7;i++) 
+		for(int i=0;i<6;i++) 
 		{
 			for(int j=0;j<7;j++) 
 			{
-				if(numberofDays>=date) 
+				if(dayOne<=numberofDays) 
 				{
-					if(i==0 && j>=0) 
+					if(i==0 && j>=(startDay))
 					{
-						System.out.print(days[j]+"     ");
+						calendar[i][j]=dayOne;
+						dayOne++;
 					}
-					else if(i==1 && j>=startDay) 
+					else if(i>0) 
 					{
-						if(j==3)
-						{
-							System.out.print(date+"     ");
-						}
-						else
-						{
-							System.out.print(date+"     ");
-						}
-						date++;
+						calendar[i][j]=dayOne;
+						dayOne++;
 					}
-					else if(i>=2) 
-					{
-						if(j==3)
-						{
-							System.out.print(date+"     ");
-						}
-						else
-						{
-							System.out.print(date+"     ");
-						}
-						date++;
-					}
-					else 
-					{
-						System.out.print("     ");
-					}
-					
 				}
+			}
+		}
+		
+		System.out.println();
+		
+		for(int i=0;i<6;i++) 
+		{
+			for(int j=0;j<7;j++) 
+			{
+				if(calendar[i][j]<1) 
+				{
+					System.out.print("       ");
+				}
+				else if(calendar[i][j]<=9) 
+				{
+					System.out.print(calendar[i][j]+"      ");
+				}
+				else 
+				{
+					System.out.print(calendar[i][j]+"     ");
+				}
+				
 			}
 			System.out.println();
 		}
+	}
+	
+	
+	
+	/**
+	 * function traverse the string from left to right and 
+	 * stores the character in the Deque from rear.later it 
+	 * traverse the Deque from front and forms a string.
+	 * the content of input string and the string formed 
+	 * after traversing is checked and based on the result 
+	 * appropriate boolean value is returned.
+	 * 
+	 * 
+	 * @param name input string entered by user.
+	 * @return true if the string is palindrome else false.
+	 */
+	public static boolean palindromeChecker(String name) 
+	{
+		
+		Deque<Character> deque = new LinkedList<Character>();
 		
 		
+		for(int i=0;i<name.length();i++) 
+		{
+			deque.addLast(name.charAt(i));
+		}
+		
+		String empty = "";
+		
+		Iterator<Character> reverse = deque.descendingIterator();
+		
+		while(reverse.hasNext()) 
+		{
+			empty=empty+reverse.next();
+		}
+		
+		if(empty.equals(name)) 
+		{
+			return true;
+		}
+		return false;
 	}
 }

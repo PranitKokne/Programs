@@ -1,20 +1,27 @@
+/**
+ * Purpose :The program prints the calendar of the month.
+ * 
+ * @author Pranit_Kokne
+ * @version 1.0
+ * @since 08-03-2018
+ *
+ */
+
 package com.bridgeit.datastructure;
 
 import com.bridgeit.utility.Utility;
 
 public class Calendar {
-
+	/*
+	 * main function takes the month and year as a input and
+	 * based on the input finds out the year is leap or not and
+	 * the number of days in a particular month and in the 
+	 * end prints the calendar of the month.
+	 */
 	public static void main(String[] args) 
 	{
 		int numberofDays;
 		Utility util = new Utility();
-		/*
-		 * call dayofweek method
-		 * call leap year method
-		 * then based on the return value of the methods
-		 * call the calendar print method
-		 * 
-		 */
 		
 		System.out.println("Enter the month : ");
 		int month = util.integerInput();
@@ -33,15 +40,14 @@ public class Calendar {
 			numberofDays=Utility.normalYear(month);
 		}
 		System.out.println(numberofDays);
+		
 		//finding the start day of month 0 to 6
 		int startDay = Utility.dayOfWeek(month, 1, year);
 		System.out.println(startDay);
+		
 		//call the calendar print method
 		
 		Utility.calendar(startDay,numberofDays,year,month);
-		
-		
-
 	}
 
 }
