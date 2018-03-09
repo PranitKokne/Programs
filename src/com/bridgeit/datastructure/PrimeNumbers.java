@@ -1,50 +1,37 @@
+/**
+ * Purpose :The program finds the prime number between 0-1000 and stores them 
+ * 			in a 2 Dimensional array where the first dimension represent the 
+ * 			range like 0-100,100-200 and so on. and the second dimension represent 
+ * 			the prime number in that range.
+ * 
+ * @author Pranit_Kokne
+ * @version 1.0
+ * @since 09-03-2018
+ */
 
 package com.bridgeit.datastructure;
 
 import com.bridgeit.utility.Utility;
 
 public class PrimeNumbers {
-
+	/*
+	 * main function first finds the column size of a jagged array
+	 * then it finds the prime number between 0-1000 and stores them 
+	 * in 2 Dimensional array and later print the 2D array.
+	 */
 	public static void main(String[] args) 
 	{
-		int[][] prime = new int[10][100];
+		//defining the jagged array
+		int[][] prime = new int[10][];
 		
-		int j = 0;
-		int num = 100;
-		int column = 0;
+		//counting the columns of each row of a jagged array
+		Utility.columnCountof2DArray(prime);
 		
-		for(int i=0;i<10;i++) 
-		{
-			for(;j<num;j++) 
-			{
-				if(j>=2) 
-				{
-					int primeNumber = Utility.findPrime(j);
-					if(primeNumber>1) 
-					{
-						/*prime[i][column]=j;
-						column++;*/
-						System.out.print(primeNumber+" ");
-					}
-				}
-			}
-			j=num;
-			num+=100;
-			column=0;
-			System.out.println();
-		}
+		//storing the prime numbers into 2 D array
+		Utility.storePrimes(prime);
+		
 		//printing the prime number stored in 2D array
-		
-		/*for(int q=0;q<prime.length;q++) 
-		{
-			for(int p=0;p<prime[q].length;p++) 
-			{
-				System.out.print(prime[q][p]+" ");
-			}
-			System.out.println();
-		}
-*/		
-		
+		Utility.jaggedArrayPrint(prime, prime.length);
 	}
 
 }

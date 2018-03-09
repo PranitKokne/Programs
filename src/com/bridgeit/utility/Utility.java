@@ -1346,4 +1346,96 @@ public class Utility
 		}
 		return false;
 	}
+	
+	
+	/**
+	 * function counts the columns of int jagged array
+	 * 
+	 * @param name of the two dimensional array
+	 */
+	public static void columnCountof2DArray(int[][] name) 
+	{
+		int j = 0; 
+		int range = 100;
+		int columnCount = 0;
+		
+		for(int i=0;i<10;i++) 
+		{
+			for(;j<range;j++) 
+			{
+				if(j>=2) 
+				{
+					int primeNumber = Utility.findPrime(j);
+					if(primeNumber>1) 
+					{
+						columnCount++;
+					}
+				}
+			}
+			name[i]=new int[columnCount];
+			j=range;
+			range+=100;
+			columnCount=0;
+		}
+	}
+	
+	/**
+	 * function stores the prime numbers into 2D int array
+	 * 
+	 * @param name of the two dimensional array
+	 */
+	public static void storePrimes(int[][] name) 
+	{
+		int k = 0;
+		int range = 100;
+		int column = 0;
+		
+		for(int i=0;i<10;i++) 
+		{
+			for(;k<range;k++) 
+			{
+				if(k>=2) 
+				{
+					int primeNumber = Utility.findPrime(k);
+					if(primeNumber>1) 
+					{
+						name[i][column]=k;
+						column++;
+					}
+				}
+			}
+			k=range;
+			range+=100;
+			column=0;
+		}
+	}
+	
+	/**
+	 * function print the Two Dimensional int jagged array
+	 * 
+	 * @param name of the 2D int array
+	 * @param length of the 2D int array
+	 */
+	public static void jaggedArrayPrint(int[][] name, int length) 
+	{
+		for(int q=0;q<name.length;q++) 
+		{
+			for(int p=0;p<name[q].length;p++) 
+			{
+				if(name[q][p]<10) 
+				{
+					System.out.print(name[q][p]+"   ");
+				}
+				else if(name[q][p]<100) 
+				{
+					System.out.print(name[q][p]+"  ");
+				}
+				else 
+				{
+					System.out.print(name[q][p]+" ");
+				}
+			}
+			System.out.println();
+		}
+	}
 }
