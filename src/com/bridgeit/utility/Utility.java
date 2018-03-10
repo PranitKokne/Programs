@@ -95,6 +95,11 @@ public class Utility
 		 }
 		 return null;
 	 }
+	 
+	 public static void lineCursor() 
+	 {
+		 System.out.println();
+	 }
 
 	
 	/*
