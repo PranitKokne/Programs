@@ -1,5 +1,7 @@
 package com.bridgeit.utility;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Deque;
 import java.util.Iterator;
@@ -8,6 +10,7 @@ import java.util.Scanner;
 
 import com.bridgeit.datastructure.Customer;
 import com.bridgeit.datastructure.Queue;
+import com.bridgeit.datastructure.LinkedListt;
 
 
 public class Utility 
@@ -343,7 +346,7 @@ public class Utility
 	 * function prints the two dimensional array using PrintWriter class 
 	 * 
 	 */
-	public static void printTwoDimensionalArray(Object[][] object) 
+	public static <E> void printTwoDimensionalArray(E[][] object) 
 	{
 		for(int i=0;i<object.length;i++)
 		{
@@ -1443,4 +1446,49 @@ public class Utility
 			System.out.println();
 		}
 	}
+	
+	
+	/*************** Extra methods ************************************/
+	
+	public static <T> void fileReading(String path, LinkedListt<T> words) 
+	{
+		String empty = "";
+		FileInputStream fileInputStream = null;
+		
+		try 
+		{
+			fileInputStream = new FileInputStream(path);
+			
+			int data = fileInputStream.read();
+			while(data != -1) 
+			{
+				if(data != ' ') 
+				{
+					empty=empty+(char)data;
+				}
+				else 
+				{
+					words.add((T) empty);
+					empty="";
+				}
+				data=fileInputStream.read();
+			}
+		}
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				fileInputStream.close();
+			} catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 }

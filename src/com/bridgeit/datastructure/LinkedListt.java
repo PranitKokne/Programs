@@ -1,9 +1,10 @@
 package com.bridgeit.datastructure;
 
+import java.util.Iterator;
 import com.bridgeit.utility.Utility;
 
 
-public class LinkedList<T> 
+public class LinkedListt<T> implements Iterable<T>
 {
 	//head node 
 	Node head;	
@@ -11,7 +12,7 @@ public class LinkedList<T>
 	//insert at the end of the list 
 	public <E> void add(E data) 
 	{
-		Node node = new Node(data,null);
+		Node<E> node = new Node<E>(data,null);
 				
 		if(head == null) 
 		{
@@ -19,7 +20,7 @@ public class LinkedList<T>
 		}
 		else 
 		{
-			Node temp = head;
+			Node<E> temp = head;
 			while(temp.next != null) 
 			{
 				temp = temp.next;
@@ -39,7 +40,7 @@ public class LinkedList<T>
 		head = node;
 	}
 	//insert at the end
-	public <E>void addLast(E data) 
+	public <E> void addLast(E data) 
 	{
 		add(data);
 	}
@@ -110,7 +111,7 @@ public class LinkedList<T>
 		}
 	}
 	
-	public <E> void deleteByItem(E item) 
+	/*public <E> void deleteByItem(E item) 
 	{
 		Node temp = head;
 		Node prev = null;
@@ -119,6 +120,7 @@ public class LinkedList<T>
 		if(temp != null && temp.data==item) 
 		{
 			head = temp.next;
+			return;
 		}
 		
 		while(temp != null && temp.data!=item) 
@@ -132,6 +134,22 @@ public class LinkedList<T>
 			return;
 		
 		prev.next = temp.next;	
+	}*/
+	
+	//search element in the list
+	public <T> boolean  search(T item) 
+	{
+		Node<T> current = head;
+		
+		while(current!=null) 
+		{
+			if(current.data.equals(item)) 
+			{
+				return true;
+			}
+			current = current.next;
+		}
+		return false;
 	}
 	
 	//print the list 
@@ -145,6 +163,63 @@ public class LinkedList<T>
 		}
 		System.out.print(temp.data);
 		Utility.lineCursor();
+	}
+	
+	
+	public <E> void deleteByValue(E item) 
+	{
+		Node temp = head;
+		Node prev = null;
+		
+		if(item instanceof String) 
+		{
+			//removing the head node
+			if(temp != null && temp.data.equals(item)) 
+			{
+				head = temp.next;
+				return;
+			}
+			
+			while(temp != null && !(temp.data.equals(item))) 
+			{
+				prev = temp;
+				temp = temp.next;
+			}
+			
+			//if the item is not present in the linked list then do nothing
+			if(temp==null)
+				return;
+			
+			prev.next = temp.next;	
+		}
+		else 
+		{
+			if(temp != null && temp.data==item) 
+			{
+				head = temp.next;
+				return;
+			}
+			
+			while(temp != null && temp.data!=item) 
+			{
+				prev = temp;
+				temp = temp.next;
+			}
+			
+			//if the item is not present in the linked list then do nothing
+			if(temp==null)
+				return;
+			
+			prev.next = temp.next;	
+		}
+	}
+	
+
+	@Override
+	public Iterator<T> iterator() 
+	{
+		
+		return null;
 	}
 	
 	

@@ -117,13 +117,6 @@ public class Queue
 			
 		}
 			
+		}				
 	}
-		
-		
-		
-			
-			
-		
-	}
-
 }
