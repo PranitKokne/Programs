@@ -1,58 +1,51 @@
 package com.bridgeit.datastructure;
 
-import java.util.Iterator;
-import com.bridgeit.utility.Utility;
-
-
-public class LinkedListt<T> implements Iterable<T>
+public class MyLinkedList<T> 
 {
-	//head node 
-	Node head;	
+Node head;
 	
-	//insert at the end of the list 
-	public <E> void add(E data) 
+	//add
+	public <T> void add(T item) 
 	{
-		Node<E> node = new Node<E>(data,null);
-				
+		Node<T> node = new Node(item,null);
+		
 		if(head == null) 
 		{
 			head = node;
 		}
 		else 
 		{
-			Node<E> temp = head;
+			Node temp = head;
 			while(temp.next != null) 
 			{
 				temp = temp.next;
 			}
 			temp.next = node;
-		}	
+		}
 	}
 	
 	//insert at the start
-	public <E> void addFirst(E data) 
+	public <T> void addFirst(T item) 
 	{
-		Node node = new Node(data,null);
-		node.data = data;
-		node.next = null;
+		Node node = new Node(item,null);
 			
 		node.next = head;
 		head = node;
 	}
 	//insert at the end
-	public <E> void addLast(E data) 
+	public <T> void addLast(T item) 
 	{
-		add(data);
+		add(item);
 	}
 	
 	//insert at a particular index 
-	public <E> void addAt(int index,E data) 
+	public <T> void addAt(int index,T item) 
 	{
-		Node node = new Node(data,null);
+		Node node = new Node(item,null);
 				
 		if(index == 0) 
 		{
-			addFirst(data);
+			addFirst(item);
 		}
 		else 
 		{
@@ -99,15 +92,15 @@ public class LinkedListt<T> implements Iterable<T>
 		else 
 		{
 			Node temp = head;
-			Node n1 = null;
+			Node node1 = null;
 			for(int i=0;i<index-1;i++) 
 			{
 				temp = temp.next;
 			}
-			n1 = temp.next;
-			temp.next = n1.next;
+			node1 = temp.next;
+			temp.next = node1.next;
 			
-			n1.next=null;
+			node1.next=null;
 		}
 	}
 	
@@ -152,21 +145,7 @@ public class LinkedListt<T> implements Iterable<T>
 		return false;
 	}
 	
-	//print the list 
-	public void show() 
-	{
-		Node temp = head;
-		while(temp.next!=null) 
-		{
-			System.out.print(temp.data+" ");
-			temp = temp.next;
-		}
-		System.out.print(temp.data);
-		Utility.lineCursor();
-	}
-	
-	
-	public <E> void deleteByValue(E item) 
+	public <T> void deleteByValue(T item) 
 	{
 		Node temp = head;
 		Node prev = null;
@@ -214,14 +193,18 @@ public class LinkedListt<T> implements Iterable<T>
 		}
 	}
 	
-
-	@Override
-	public Iterator<T> iterator() 
+	
+	//show
+	public void show() 
 	{
-		
-		return null;
+		Node temp = head;
+		while(temp.next != null) 
+		{
+			System.out.print(temp.data+" ");
+			temp = temp.next;
+		}
+		System.out.println(temp.data);
 	}
-	
-	
+
 
 }

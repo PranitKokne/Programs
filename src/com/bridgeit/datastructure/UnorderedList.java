@@ -23,7 +23,7 @@ public class UnorderedList {
 		
 		Utility util = new Utility();
 		String empty = "";
-		LinkedListt<String> words = new LinkedListt<String>();
+		MyLinkedList<String> words = new MyLinkedList<String>();
 		
 		/*FileInputStream fileInputStream = null;
 		

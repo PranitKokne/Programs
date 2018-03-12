@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import com.bridgeit.datastructure.Customer;
 import com.bridgeit.datastructure.Queue;
-import com.bridgeit.datastructure.LinkedListt;
+import com.bridgeit.datastructure.MyLinkedList;
 
 
 public class Utility 
@@ -1366,6 +1366,7 @@ public class Utility
 		int j = 0; 
 		int range = 100;
 		int columnCount = 0;
+		int primeNumbers = 0;
 		
 		for(int i=0;i<10;i++) 
 		{
@@ -1377,6 +1378,7 @@ public class Utility
 					if(primeNumber>1) 
 					{
 						columnCount++;
+						primeNumbers++;
 					}
 				}
 			}
@@ -1450,7 +1452,7 @@ public class Utility
 	
 	/*************** Extra methods ************************************/
 	
-	public static <T> void fileReading(String path, LinkedListt<T> words) 
+	public static <T> void fileReading(String path, MyLinkedList<T> words) 
 	{
 		String empty = "";
 		FileInputStream fileInputStream = null;
@@ -1468,7 +1470,7 @@ public class Utility
 				}
 				else 
 				{
-					words.add((T) empty);
+					words.add(empty);
 					empty="";
 				}
 				data=fileInputStream.read();

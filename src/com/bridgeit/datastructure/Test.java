@@ -4,14 +4,14 @@ public class Test {
 
 	public static void main(String[] args) 
 	{
-		LinkedListt<Integer> mylist = new LinkedListt<Integer>();
+		MyLinkedList<Integer> mylist = new MyLinkedList<Integer>();
 		
 		mylist.add(10);
 		mylist.add(50);
 		mylist.deleteByValue(10);
 		mylist.show();
 		
-		LinkedListt<String> namelist = new LinkedListt<String>();
+		MyLinkedList<String> namelist = new MyLinkedList<String>();
 		
 		namelist.add("pranit");
 		namelist.add("anita");
