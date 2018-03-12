@@ -31,9 +31,10 @@ public class AnagramUsingQueue {
 		//adding prime numbers from 0 to 1000 in an list
 		for(int i=0;i<=1000;i++)
 		{
+			
 			//using the static function of Utility
 			int prime = Utility.findPrime(i);
-			if(prime>0) 
+			if(prime>1) 
 			{
 				primeNumbers.add(i);
 			}

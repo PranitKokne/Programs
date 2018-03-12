@@ -1,6 +1,8 @@
 package com.bridgeit.utility;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Deque;
@@ -1452,7 +1454,15 @@ public class Utility
 	
 	/*************** Extra methods ************************************/
 	
-	public static <T> void fileReading(String path, MyLinkedList<T> words) 
+	/**
+	 * the function reads the contents of file and add it to the customized 
+	 * linked list by using the byte reader classes.
+	 * 
+	 * 
+	 * @param path the directory where the file is present for reading
+	 * @param list linked list containing words
+	 */
+	public static <T> void fileReading(String path, MyLinkedList<T> list) 
 	{
 		String empty = "";
 		FileInputStream fileInputStream = null;
@@ -1470,7 +1480,7 @@ public class Utility
 				}
 				else 
 				{
-					words.add(empty);
+					list.add(empty);
 					empty="";
 				}
 				data=fileInputStream.read();
@@ -1492,5 +1502,31 @@ public class Utility
 		}
 	}
 	
+	
+	/**
+	 * the function writes the data part of linked list into the file
+	 * 
+	 * @param path the directory where the file is present for writing
+	 * @param words linked list containing words
+	 */
+	public static <T> void fileWriting(String path, MyLinkedList<String> words)
+	{
+		try
+		{
+			FileWriter filewriter = new FileWriter(path);
+			
+			BufferedWriter bufferedwriter = new BufferedWriter(filewriter);
+			
+			String update = words.toString();
+			
+			bufferedwriter.write(update);
+			
+			bufferedwriter.close();
+		}
+		catch(IOException ex) 
+		{
+			ex.printStackTrace();
+		}
+	}
 	
 }

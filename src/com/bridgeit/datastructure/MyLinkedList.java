@@ -1,8 +1,12 @@
 package com.bridgeit.datastructure;
 
+import java.util.Iterator;
+
+
+
 public class MyLinkedList<T> 
 {
-Node head;
+	Node head;
 	
 	//add
 	public <T> void add(T item) 
@@ -205,6 +209,18 @@ Node head;
 		}
 		System.out.println(temp.data);
 	}
-
+	
+	//overriding the toString method 
+	public String toString() 
+	{
+		String result = "";
+		Node temp = head;
+		while(temp.next != null) 
+		{
+			result = result+temp.data+" ";
+			temp = temp.next;
+		}
+		return result+temp.data+" ";
+	}
 
 }

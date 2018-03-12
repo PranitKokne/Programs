@@ -45,8 +45,7 @@ public class Calendar {
 		int startDay = Utility.dayOfWeek(month, 1, year);
 		System.out.println(startDay);
 		
-		//call the calendar print method
-		
+		//call the calendar print method		
 		Utility.calendar(startDay,numberofDays,year,month);
 	}
 
