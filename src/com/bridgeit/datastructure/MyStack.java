@@ -39,7 +39,7 @@ public class MyStack<T>
 	}
 	
 	
-	public <T> Object pop() 
+	public T pop() 
 	{
 		if(isEmpty())
 		{
@@ -48,7 +48,7 @@ public class MyStack<T>
 		Node temp = top;
 		top = temp.next;
 		size--;
-		return temp.data;
+		return (T)temp.data;
 	}
 
 

@@ -13,6 +13,8 @@ import java.util.Scanner;
 import com.bridgeit.datastructure.Customer;
 import com.bridgeit.datastructure.Queue;
 import com.bridgeit.datastructure.MyLinkedList;
+import com.bridgeit.datastructure.MyQueue;
+import com.bridgeit.datastructure.MyStack;
 
 
 public class Utility 
@@ -1257,6 +1259,13 @@ public class Utility
 		
 		return daysofMonth[month-1];
 	}
+	/**
+	 * the function prints the calendar in the form of two dimensional array
+	 * @param startDay the first day of the month
+	 * @param numberofDays  number of days in a month 
+	 * @param year entered by the user
+	 * @param month entered by the user
+	 */
 	public static void calendar(int startDay,int numberofDays,int year,int month) 
 	{	
 		int[][] calendar = new int[6][7];
@@ -1528,5 +1537,178 @@ public class Utility
 			ex.printStackTrace();
 		}
 	}
+	
+	/**
+	 * the function finds the factorial of a number
+	 * 
+	 * @param number to find the factorial
+	 * @return the value of factorial in double
+	 */
+	public static double factorial(double number)
+	{
+		double fact = 1;
+		while(number>0)
+		{
+			fact=fact*number;
+			number--;
+		}
+		return fact;
+	}
+	
+	/**
+	 * the function return the number of binary search trees that can be constructed 
+	 * based on the number of nodes 
+	 * @param nodes used to construct the binary search trees
+	 * @return the count of binary search trees
+	 */
+	public static double binarySearchTrees(double nodes) 
+	{
+		double firstTerm = (2*nodes);
+		double secondTerm = (nodes+1);
+		double thirdTerm = nodes;
+		
+		double numberofBinarySearchTress = factorial(firstTerm)/(factorial(secondTerm)*factorial(thirdTerm));
+				
+		return numberofBinarySearchTress;
+	}
+	
+	/**
+	 * the function prints the calendar using queue.
+	 * @param startDay the first day of the month
+	 * @param numberofDays  number of days in a month 
+	 * @param year entered by the user
+	 * @param month entered by the user
+	 */
+	public static void calendarPrintUsingQueue(int startDay,int numberofDays,int year,int month) 
+	{	
+		MyQueue<Integer> calendar = new MyQueue<Integer>();
+		
+		int dayOne = 1;
+		
+		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+		String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+		System.out.println(months[month-1]+"  "+year);
+		
+		for(String day : days) 
+		{
+			System.out.print(day+"    ");
+		}
+		
+		for(int i=0;i<6;i++) 
+		{
+			for(int j=0;j<7;j++) 
+			{
+				if(dayOne<=numberofDays) 
+				{
+					if(i==0 && j>=(startDay))
+					{
+						calendar.enQueue(dayOne);
+						dayOne++;
+					}
+					else if(i>0) 
+					{
+						calendar.enQueue(dayOne);
+						dayOne++;
+					}
+					else
+					{
+						calendar.enQueue(0);
+					}
+				}
+			}
+		}
+		
+		System.out.println();
+		
+		//calendar.show();
+		
+		
+		int count = 1;
+		int runtill = numberofDays+startDay;
+		while(count<=runtill) 
+		{
+			int day = calendar.DeQueue();
+			if(day<1)
+				System.out.print("       ");
+			else if(day<=9)
+				System.out.print(day+"      ");
+			else
+				System.out.print(day+"     ");
+			
+			count++;
+			if(count==8 || count==15 || count==22 || count==29 || count==36)
+				System.out.println();
+		}
+	}
+	
+	
+	
+	/**
+	 * @param startDay
+	 * @param numberofDays
+	 * @param year
+	 * @param month
+	 */
+	public static void calendarPrintUsingStack(int startDay,int numberofDays,int year,int month) 
+	{	
+		MyStack<Integer> calendar = new MyStack<Integer>();
+		
+		int dayOne = 1;
+		
+		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+		String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+		System.out.println(months[month-1]+"  "+year);
+		
+		for(String day : days) 
+		{
+			System.out.print(day+"    ");
+		}
+		
+		for(int i=0;i<6;i++) 
+		{
+			for(int j=0;j<7;j++) 
+			{
+				if(dayOne<=numberofDays) 
+				{
+					if(i==0 && j>=(startDay))
+					{
+						calendar.push(numberofDays);
+						numberofDays--;
+					}
+					else if(i>0) 
+					{
+						calendar.push(numberofDays);
+						numberofDays--;
+					}
+					
+				}
+			}
+		}
+		
+		System.out.println();
+		
+		//calendar.show();
+		for(int i=0;i<31;i++)
+			System.out.println(calendar.pop());
+		
+		/*int count = 1;
+		int runtill = numberofDays+startDay;
+		while(count<=runtill) 
+		{
+			int day = calendar.pop();
+			if(day<1)
+				System.out.print("       ");
+			else if(day<=9)
+				System.out.print(day+"      ");
+			else
+				System.out.print(day+"     ");
+			
+			count++;
+			if(count==8 || count==15 || count==22 || count==29 || count==36)
+				System.out.println();
+		}*/
+	}
+
+	
 	
 }

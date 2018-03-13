@@ -44,6 +44,23 @@ public class MyQueue<T>
 		}
 	}
 	
+	public T DeQueue() 
+	{
+		Node temp = front;
+		if(front != rear) 
+		{
+			front = front.next;
+			return (T)temp.data;
+		}
+		else 
+		{
+			front = null;
+			rear = null;
+		}
+		return (T)temp.data;
+	}
+	
+	
 	public void show() 
 	{
 		Node temp = front;
