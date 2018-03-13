@@ -22,11 +22,11 @@ public class SqrtNewton
 	public static void main(String[] args) 
 	{
 		boolean flag = true;
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		while(flag)
 		{	
 			System.out.print("Enter a non negative number : ");
-			int number = scanner.nextInt();
+			int number = util.integerInput();
 			if(number>=0) 
 			{
 				Utility.sqrt(number);

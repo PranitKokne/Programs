@@ -27,14 +27,15 @@ public class Anagram
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
+		
 		
 		//accepting two words from user
 		System.out.print("Enter the first word : ");
-		String word1 = scanner.nextLine();
+		String word1 = util.inputStringLine();
 		
 		System.out.print("Enter the second word : ");
-		String word2 = scanner.nextLine();
+		String word2 = util.inputStringLine();
 		
 		word1=word1.toLowerCase();
 		word2=word2.toLowerCase();

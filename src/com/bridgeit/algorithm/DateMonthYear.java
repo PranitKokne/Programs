@@ -24,17 +24,17 @@ public class DateMonthYear
 	public static void main(String[] args) 
 	{
 		int d0=-1;
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		boolean flag = true;
 		
 		while(flag)
 		{
 			System.out.print("Enter the month : ");
-			int m = scanner.nextInt();
+			int m = util.integerInput();
 			System.out.print("Enter the day : ");
-			int d = scanner.nextInt();
+			int d = util.integerInput();
 			System.out.print("Enter the year : ");
-			int y = scanner.nextInt();
+			int y = util.integerInput();
 			
 			
 			if(m<=12 && d<=31 && Integer.toString(y).length()==4)

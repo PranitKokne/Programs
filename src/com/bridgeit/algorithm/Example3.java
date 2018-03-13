@@ -28,7 +28,7 @@ public class Example3
 	{
 		int output;
 		
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		
 		Long[] time = new Long[6];
 		
@@ -48,10 +48,10 @@ public class Example3
 		while(flag) 
 		{
 			System.out.print("Enter your choice :");
-			int i = scanner.nextInt();
+			int i = util.integerInput();
 			
 			System.out.print("Enter the size of an array :");
-			int size = scanner.nextInt();
+			int size = util.integerInput();
 			
 			
 				Integer[] numbers = new Integer[size];
@@ -69,10 +69,10 @@ public class Example3
 				System.out.println("Enter the "+size+" integer elements");
 				for(int j=0;j<size;j++) 
 				{
-					intarray[j]=scanner.nextInt();
+					intarray[j]=util.integerInput();
 				}
 				System.out.print("Enter the element you want to search :");
-				int search = scanner.nextInt();
+				int search = util.integerInput();
 				
 				output = Utility.binarySearch(intarray, intarray.length, search);
 				if(output>=0) 
@@ -92,10 +92,10 @@ public class Example3
 				System.out.println("Enter the "+size+" string elements");
 				for(int j=0;j<size;j++) 
 				{
-					stringarray1[j]=scanner.next();
+					stringarray1[j]=util.inputString();
 				}
 				System.out.print("Enter the element you want to search :");
-				String element = scanner.next();
+				String element = util.inputString();
 				
 				output=Utility.binarySearchForString(stringarray1,stringarray1.length, element);
 				if(output>=0) 
@@ -115,7 +115,7 @@ public class Example3
 				System.out.println("Enter the "+size+" integer elements");
 				for(int j=0;j<size;j++) 
 				{
-					numbers[j]=scanner.nextInt();
+					numbers[j]=util.integerInput();
 				}
 				
 				Utility.insertionSorting(numbers,numbers.length);
@@ -132,7 +132,7 @@ public class Example3
 				System.out.println("Enter the "+size+" string elements");
 				for(int j=0;j<size;j++) 
 				{
-					names[j]=scanner.next();
+					names[j]=util.inputString();
 				}
 				
 				Utility.insertionSorting(names,names.length);
@@ -149,7 +149,7 @@ public class Example3
 				System.out.println("Enter the "+size+" integer elements");
 				for(int j=0;j<size;j++) 
 				{
-					numbers[j]=scanner.nextInt();
+					numbers[j]=util.integerInput();
 				}
 				
 				Utility.bubbleSort(numbers, numbers.length);
@@ -166,7 +166,7 @@ public class Example3
 				System.out.println("Enter the "+size+" string elements");
 				for(int j=0;j<size;j++) 
 				{
-					names[j]=scanner.next();
+					names[j]=util.inputString();
 				}
 				
 				Utility.bubbleSort(names, names.length);

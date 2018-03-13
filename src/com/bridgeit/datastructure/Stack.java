@@ -1,11 +1,3 @@
-
-
-package com.bridgeit.datastructure;
-
-import com.bridgeit.utility.Utility;
-
-
-
 /**
  * Purpose :The program takes arithmetic expression as a input such as
  * 			(5+6)∗(7+8) and ensure it's parentheses are balanced or not
@@ -16,14 +8,17 @@ import com.bridgeit.utility.Utility;
  * @since 07-03-2018
  *
  */
+
+package com.bridgeit.datastructure;
+
+import com.bridgeit.utility.Utility;
+
 public class Stack 
 { 
 	/**
 	 * main function takes an arithmetic expression as a input
 	 * convert it to the char array and ensure that the parentheses
 	 * are balanced or not. 
-	 * 
-	 * 
 	 */
 	public static void main(String[] args)
 	{

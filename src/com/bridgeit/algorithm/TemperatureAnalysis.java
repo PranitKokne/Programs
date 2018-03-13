@@ -23,21 +23,21 @@ public class TemperatureAnalysis
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.println("Press 1 for Celsius to Fahrenheit conversion :");
 		System.out.println("Press 2 for Fahrenheit to Celsius conversion :");
 		
 		while(true) 
 		{
 			System.out.println("Enter your choice : ");
-			int choice = scanner.nextInt();
+			int choice =util.integerInput();
 			double temp;
 			String tempType;
 			switch(choice) 
 			{
 			case 1 :
 				System.out.print("Enter the temperature in Celsius : ");
-				temp = scanner.nextDouble();
+				temp = util.doubleInput();
 				tempType = "Celsius";
 				
 				//using the static function of Utility
@@ -46,7 +46,7 @@ public class TemperatureAnalysis
 				
 			case 2 :
 				System.out.print("Enter the temperature in Fahrenheit : ");
-				temp = scanner.nextDouble();
+				temp = util.doubleInput();
 				tempType="Fahrenheit";
 				
 				//using the static function of Utility

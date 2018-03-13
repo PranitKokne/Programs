@@ -1,9 +1,22 @@
+/**
+ * Purpose :The program prints the calendar using Queue.
+ * 
+ * @author Pranit_Kokne
+ * @version 1.0
+ * @since 13-03-2018
+ *
+ */
+
 package com.bridgeit.datastructure;
 
 import com.bridgeit.utility.Utility;
 
 public class CalendarUsingQueue {
 
+	/**
+	 * the main function takes the month and year as a input from user 
+	 * and prints the calendar of the month with the help of stack.
+	 */
 	public static void main(String[] args) {
 		int numberofDays;
 		Utility util = new Utility();

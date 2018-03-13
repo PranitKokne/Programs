@@ -24,16 +24,16 @@ public class InsertionSort {
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.print("Enter the size of an array : ");
-		int size = scanner.nextInt();
+		int size = util.integerInput();
 		
 		String[] names = new String[size];
 		
 		System.out.println("Enter "+size+" elements into array :");
 		for(int i=0;i<names.length;i++) 
 		{
-			names[i]=scanner.next();
+			names[i]=util.inputString();
 		}
 		
 		System.out.println("array before sorting :");

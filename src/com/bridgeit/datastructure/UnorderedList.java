@@ -57,10 +57,6 @@ public class UnorderedList {
 		System.out.println(words.size());
 		
 		Utility.fileWriting("/home/bridgeit/Pranit/files/words.text", words);
-		
-				
-		
-
 	}
 
 }

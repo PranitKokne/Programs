@@ -25,16 +25,16 @@ public class BubbleSort
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.print("Enter the size of an array : ");
-		int size = scanner.nextInt();
+		int size = util.integerInput();
 		
 		Integer[] numbers = new Integer[size];
 		
 		System.out.println("Enter "+size+" elements into array :");
 		for(int i=0;i<numbers.length;i++) 
 		{
-			numbers[i]=scanner.nextInt();
+			numbers[i]=util.integerInput();
 		}
 		
 		System.out.println("array before sorting :");

@@ -22,12 +22,12 @@ public class MergeSortString
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.print("Enter the size of an array : ");
-		int size = scanner.nextInt();
+		int size = util.integerInput();
 		
 		//consumer string
-		scanner.nextLine();
+		util.inputStringLine();
 		
 		String[] array = new String[size];
 		
@@ -35,7 +35,7 @@ public class MergeSortString
 		System.out.println("Enter "+size+" string elements : ");
 		for(int i=0;i<array.length;i++) 
 		{
-			array[i]=scanner.nextLine();
+			array[i]=util.inputStringLine();
 		}
 		//using the static method of Utility
 		Utility.divideMerge(array,array.length);

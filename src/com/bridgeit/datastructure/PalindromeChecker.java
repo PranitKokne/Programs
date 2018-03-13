@@ -12,13 +12,19 @@ import com.bridgeit.utility.Utility;
 
 public class PalindromeChecker {
 
+	/**
+	 *the function takes a string as a input from user 
+	 *and checks whether the string is palindrome or not.
+	 */
 	public static void main(String[] args) {
 		Utility util = new Utility();
 		
 		System.out.print("Enter the String as a input : ");
-		String name = util.inputString();
+		String name = util.inputStringLine();
 		
 		name=name.toLowerCase();
+		
+		name=name.trim().replaceAll(" ", "");
 		
 		boolean result = Utility.palindromeChecker(name);
 		

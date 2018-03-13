@@ -12,7 +12,6 @@ package com.bridgeit.datastructure;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.bridgeit.utility.Utility;
 
 public class AnagramUsingQueue {
@@ -39,7 +38,7 @@ public class AnagramUsingQueue {
 				primeNumbers.add(i);
 			}
 		}
-		System.out.println(primeNumbers);
+		//System.out.println(primeNumbers);
 		
 		//finding prime anagram numbers and adding it to queue
 		for(int i=0;i<primeNumbers.size();i++) 

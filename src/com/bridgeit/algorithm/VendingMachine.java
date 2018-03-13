@@ -29,10 +29,10 @@ public class VendingMachine
 		
 		int[] notes = new int[]{1,2,5,10,50,100,500,1000};
 		
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		
 		System.out.print("Enter the amount : ");
-		int amount = scanner.nextInt();
+		int amount = util.integerInput();
 		
 		//using the static function of Utility
 		Utility.numberofNotes(amount,notes);

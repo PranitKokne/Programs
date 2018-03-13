@@ -26,9 +26,9 @@ public class Binary
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.print("Enter the Decimal Number : ");
-		int decimalNumber = scanner.nextInt();
+		int decimalNumber = util.integerInput();
 		
 		//using the static method of Utility
 		Utility.binaryConversion(decimalNumber);

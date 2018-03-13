@@ -750,6 +750,7 @@ public class Utility
 		{
 			System.out.print(ele+" ");
 		}
+		System.out.println();
 	}
 	
 	/**
@@ -1461,7 +1462,7 @@ public class Utility
 	}
 	
 	
-	/*************** Extra methods ************************************/
+	
 	
 	/**
 	 * the function reads the contents of file and add it to the customized 
@@ -1619,10 +1620,6 @@ public class Utility
 		}
 		
 		System.out.println();
-		
-		//calendar.show();
-		
-		
 		int count = 1;
 		int runtill = numberofDays+startDay;
 		while(count<=runtill) 
@@ -1644,16 +1641,20 @@ public class Utility
 	
 	
 	/**
-	 * @param startDay
-	 * @param numberofDays
-	 * @param year
-	 * @param month
+	 * the function prints the calendar using the stack.
+	 * 
+	 * @param startDay the first day of the month
+	 * @param numberofDays  number of days in a month 
+	 * @param year entered by the user
+	 * @param month entered by the user
+	 * 
 	 */
 	public static void calendarPrintUsingStack(int startDay,int numberofDays,int year,int month) 
 	{	
 		MyStack<Integer> calendar = new MyStack<Integer>();
 		
 		int dayOne = 1;
+		int runtill = numberofDays+startDay;
 		
 		String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 		String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
@@ -1687,28 +1688,29 @@ public class Utility
 		
 		System.out.println();
 		
-		//calendar.show();
-		for(int i=0;i<31;i++)
-			System.out.println(calendar.pop());
+		int count = 1;
+		while(startDay>0)
+		{
+			System.out.print("       ");
+			startDay--;
+			count++;
+		}
 		
-		/*int count = 1;
-		int runtill = numberofDays+startDay;
 		while(count<=runtill) 
 		{
 			int day = calendar.pop();
-			if(day<1)
-				System.out.print("       ");
-			else if(day<=9)
+			if(day<=9)
+			{
 				System.out.print(day+"      ");
+				count++;
+			}
 			else
+			{
 				System.out.print(day+"     ");
-			
-			count++;
+				count++;
+			}
 			if(count==8 || count==15 || count==22 || count==29 || count==36)
 				System.out.println();
-		}*/
+		}
 	}
-
-	
-	
 }

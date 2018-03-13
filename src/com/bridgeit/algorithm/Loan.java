@@ -25,15 +25,15 @@ public class Loan
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		
 		//accepting the P R Y from user
 		System.out.print("Enter the Principal amount : ");
-		double principal = scanner.nextDouble();
+		double principal = util.doubleInput();
 		System.out.print("Enter the Rate of interest : ");
-		double rateofInterest = scanner.nextDouble();
+		double rateofInterest = util.doubleInput();
 		System.out.print("Enter the Number of years : ");
-		int noofYears = scanner.nextInt();
+		int noofYears = util.integerInput();
 		
 		//using the static function of Utility
 		Utility.monthlyPayment(principal,rateofInterest,noofYears);

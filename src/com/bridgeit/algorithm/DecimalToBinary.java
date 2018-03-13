@@ -25,9 +25,9 @@ public class DecimalToBinary
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.print("Enter the Decimal Number : ");
-		int decimalNumber = scanner.nextInt();
+		int decimalNumber = util.integerInput();
 		
 		//using the static function of Utility
 		Utility.toBinary(decimalNumber);
