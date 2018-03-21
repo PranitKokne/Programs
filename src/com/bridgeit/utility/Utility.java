@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -1713,4 +1714,77 @@ public class Utility
 				System.out.println();
 		}
 	}
+	
+	
+	/*public static <T> void fileReading(String path, LinkedHashMap<Integer,Integer> map) 
+	{
+		String empty = "";
+		FileInputStream fileInputStream = null;
+		
+		try 
+		{
+			fileInputStream = new FileInputStream(path);
+			
+			int data = fileInputStream.read();
+			while(data != -1) 
+			{
+				if(data != ' ') 
+				{
+					empty=empty+(char)data;
+				}
+				else 
+				{
+					map.put(key, value);
+					empty="";
+				}
+				data=fileInputStream.read();
+			}
+		}
+		catch(IOException e) 
+		{
+			e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{
+				fileInputStream.close();
+			} catch (IOException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+	}*/
+	
+	
+	
+	/*public static <T> void fileWriting(String path, LinkedList<String> words)
+	{
+		try
+		{
+			FileWriter filewriter = new FileWriter(path);
+			
+			BufferedWriter bufferedwriter = new BufferedWriter(filewriter);
+			
+			String update = words.toString();
+			
+			bufferedwriter.write(update);
+			
+			bufferedwriter.close();
+		}
+		catch(IOException ex) 
+		{
+			ex.printStackTrace();
+		}
+	}*/
+	
+	/************* object oriented programs******************/
+	
+	//public static boolean fileWritingInJSON(String path)
+	
+	
+	
+	
+	
+	
 }
