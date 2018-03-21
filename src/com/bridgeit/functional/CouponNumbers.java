@@ -27,11 +27,11 @@ public class CouponNumbers {
 		
 		System.out.print("enter the number of coupons : ");
 		int distinctcoupons = util.integerInput();
-				
+		int numberofCoupons = distinctcoupons;		
 		 
 		int[] coupons = new int[distinctcoupons];
 				
-		Utility.couponGenerator(distinctcoupons,coupons);
+		Utility.couponGenerator(distinctcoupons,coupons,numberofCoupons);
 		
 
 	}

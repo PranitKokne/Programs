@@ -11,13 +11,13 @@
 package com.bridgeit.objectoriented;
 
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
+import org.json.simple.parser.JSONParser;
 import com.bridgeit.utility.Utility;
 
 public class FoodManagement {
@@ -54,6 +54,40 @@ public class FoodManagement {
 	}
 	
 	
+	public static void inventoryEvalution(int count) 
+	{
+		double[] totalValue = new double[count];
+		double totalWorth = 0.0;
+	
+		JSONParser parser = new JSONParser();
+	
+		try 
+		{
+			Object obj = parser.parse(new FileReader( "/home/bridgeit/Pranit/Food.json"));
+			
+			JSONArray jsonArray = (JSONArray) obj;
+			
+			for(int i=0;i<count;i++) 
+			{
+				JSONObject object =(JSONObject)(jsonArray.get(i));
+				
+				double value = (double)object.get("Price")*(long)object.get("Weight");
+				System.out.println("The total value of "+object.get("Name")+" is "+value);
+				totalValue[i] = value;
+			}
+		}
+		catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		for(double value : totalValue) 
+		{
+			totalWorth+=value;
+		}
+		
+		System.out.println("Total estimated value of your inventory  is : "+totalWorth);
+	}
+	
 	
 	
 	/**
@@ -64,7 +98,7 @@ public class FoodManagement {
 	{
 		boolean flag = true;
 		Utility util = new Utility();
-		
+		int count = 0;
 		String name;
 		double price;
 		int weight;
@@ -95,6 +129,7 @@ public class FoodManagement {
 				
 				array.add(object);
 				//fileWritingInJSON("/home/bridgeit/Pranit/Food.json",array);
+				count++;
 				break;
 				
 			case 2 :
@@ -111,6 +146,7 @@ public class FoodManagement {
 				array.add(object);
 				
 				//fileWritingInJSON("/home/bridgeit/Pranit/Food.json",array);
+				count++;
 				break;
 				
 			case 3 :
@@ -127,13 +163,16 @@ public class FoodManagement {
 				
 				array.add(object);
 				//fileWritingInJSON("/home/bridgeit/Pranit/Food.json",array);
+				count++;
 				break;
 				
 			default :
 				fileWritingInJSON("/home/bridgeit/Pranit/Food.json",array);
 				flag = false;
 				
-			}	
+			}
 		}	
+		
+		inventoryEvalution(count);
 	}
 }

@@ -8,8 +8,11 @@ import java.io.PrintWriter;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 import com.bridgeit.datastructure.Customer;
 import com.bridgeit.datastructure.Queue;
@@ -300,12 +303,12 @@ public class Utility
 	
 	/**
 	 *function generates the distinct coupon numbers using the random 
-	 *function of Math class.
+	 *class nextInt method.
 	 *
 	 *@param count to keep the count of distinct coupon numbers
 	 *@param randomNumber to keep the count of generated random numbers
 	 */
-	public static void couponGenerator(int distinctcoupons,int[] coupons) 
+	public static void couponGenerator(int distinctcoupons,int[] coupons,int numberofCoupons) 
 	{
 		int count = 0;
 		
@@ -313,31 +316,38 @@ public class Utility
 		
 		while(distinctcoupons!=0) 
 		{
-			int generatedNumber = (int)(15*Math.random());
+			Random randomNumber = new Random();
+			
+			int generatedNumber =1 + randomNumber.nextInt(numberofCoupons);
 			randomNumbers++;
-			if(count==0) 
-			{
-				coupons[count]=generatedNumber;
-				count++;
-				distinctcoupons--;
-			}
-			else if(count<coupons.length)
-			{
-				int duplicate = 0;
-				for(int i=0;i<count;i++) 
-				{
-					if(coupons[i]==generatedNumber) 
+			 
+			
+				
+					if(count==0) 
 					{
-						duplicate++;
+						coupons[count]=generatedNumber;
+						count++;
+						distinctcoupons--;
 					}
-				}
-				if(duplicate==0) 
-				{
-					coupons[count]=generatedNumber;
-					count++;
-					distinctcoupons--;
-				}
-			}
+					else if(count<coupons.length)
+					{
+						int duplicate = 0;
+						for(int i=0;i<count;i++) 
+						{
+							if(coupons[i]==generatedNumber) 
+							{
+								duplicate++;
+							}
+						}
+						if(duplicate==0) 
+						{
+							coupons[count]=generatedNumber;
+							count++;
+							distinctcoupons--;
+						}
+					}
+				
+			
 		}
 		System.out.println("total random numbers generated are : "+randomNumbers);
 		for(int coupon : coupons) 
@@ -390,6 +400,42 @@ public class Utility
 		System.out.println("Number of distinct Triplets : "+distinctTriplets);	
 	}
 	
+	public static Set<String> permutationFinder(String str)
+	{
+		Set<String> perm = new LinkedHashSet<String>();
+		if(str==null)
+		{
+			return null;
+		}
+		else if(str.length()==0) 
+		{
+			perm.add("");
+			return perm;
+		}
+		char initial = str.charAt(0); //initial character
+		String rem = str.substring(1); //full string with remaining character
+		
+		Set<String> words = permutationFinder(rem);
+		for(String strNew : words) 
+		{
+			for(int i=0;i<=strNew.length();i++) 
+			{
+				perm.add(charInsert(strNew,initial,i));
+			}
+		}
+		return perm;
+		
+	}
+	
+	public static String charInsert(String str,char c,int j) 
+	{
+		String begin = str.substring(0, j);
+		String end = str.substring(j);
+		return begin+c+end;
+	}
+	
+	
+	
 	/**
 	 * function prints the eculidean distance from (x,y) to (0,0)
 	 * 
@@ -400,8 +446,8 @@ public class Utility
 	public static void euclideanDistance(int x,int y) 
 	{
 		//finding the power of x and y
-		double xRaiseToX = Math.pow(x,x);
-		double yRaiseToY = Math.pow(y,y);
+		double xRaiseToX = x*x;
+		double yRaiseToY = y*y;
 		double sum = xRaiseToX + yRaiseToY;
 		
 		//finding the euclidean distance
@@ -422,9 +468,10 @@ public class Utility
 		long stopTime=0l;
 		boolean flag = true;
 		Scanner scanner = new Scanner(System.in);
-		
-		while(true)
+		boolean flag1 = true;
+		while(flag1)
 		{
+			System.out.println("Press any key to exit");
 			System.out.print("Press 1 to start the stop watch :");
 			int start = scanner.nextInt();
 			if(start==1) 
@@ -449,6 +496,10 @@ public class Utility
 				}
 				System.out.println("Elapsed time : "+(stopTime-startTime)+" ms");
 				flag=false;
+			}
+			else 
+			{
+				flag1 = false;
 			}
 			
 		}

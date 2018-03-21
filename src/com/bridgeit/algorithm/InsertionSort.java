@@ -44,7 +44,7 @@ public class InsertionSort {
 		
 		System.out.println("\narray after sorting : ");
 		//using static function of Utility
-		Utility.bubbleSort(names,size);
+		Utility.insertionSorting(names,size);
 
 	}
 

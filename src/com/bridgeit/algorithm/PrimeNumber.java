@@ -27,7 +27,7 @@ public class PrimeNumber
 		{
 			//using the static function of Utility
 			int prime = Utility.findPrime(i);
-			if(prime>0) 
+			if(prime>1) 
 			{
 				System.out.print(prime+" ");
 			}

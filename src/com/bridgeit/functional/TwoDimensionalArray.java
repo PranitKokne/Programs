@@ -27,7 +27,7 @@ public class TwoDimensionalArray
 		System.out.println("Press 1 for integer array");
 		System.out.println("Press 2 for double array");
 		System.out.println("Press 3 for boolean array");
-		
+		System.out.println("Press any key to  exit");
 
 		while(true) 
 		{

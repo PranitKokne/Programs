@@ -41,6 +41,7 @@ public class FlipCoin
 				FLAG=false;
 			}
 		}
+		scanner.close();
 
 	}
 
