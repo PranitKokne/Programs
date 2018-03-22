@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -1833,7 +1835,90 @@ public class Utility
 	
 	//public static boolean fileWritingInJSON(String path)
 	
+	/**
+	 * the method forms a deck of 52 cards.
+	 * 
+	 * @param suit is one of the categories into which the cards of a deck are divided.
+	 * @param rank of a card.
+	 * @param deck of cards holding total 52 cards.
+	 */
+	public static void formingDeck(String[] suit,String[] rank,ArrayList<String> deck) 
+	{
+		
+		
+		for(int i=0;i<suit.length;i++) 
+		{
+			for(int j=0;j<rank.length;j++) 
+			{
+				deck.add(suit[i]+" of "+rank[j]);
+			}
+		}
+	}
 	
+	
+	/**
+	 * the method prints the cards object one by one using the 
+	 * universal cursor.
+	 * @param deck of cards holding total 52 cards.
+	 */
+	public static void printDeck(ArrayList<String> deck) 
+	{
+		Iterator<String> iterator = deck.iterator();
+		while(iterator.hasNext()) 
+		{
+			System.out.println(iterator.next());
+		}
+	}
+	
+	/**
+	 * the method performs the shuffle operation on the sorted 
+	 * deck.
+	 * @param deck of cards holding total 52 cards.
+	 */
+	public static void shuffleDeck(ArrayList<String> deck) 
+	{
+		Random random = new Random();
+		for(int i=0;i<52;i++) 
+		{
+			int no1 = random.nextInt(52);
+			int no2 = random.nextInt(52);
+			Collections.swap(deck,no1,no2);
+		}
+	}
+	
+	/**
+	 * the method distributes 9 cards to 4 players and prints
+	 * the cards of players in 2-D array.
+	 * 
+	 * @param deck of cards holding total 52 cards.
+	 */
+	public static void distributeAndDisplayCards(ArrayList<String> deck) 
+	{
+		int count1 = 0;
+		
+		String[][] players = new String[4][9];
+		//distributing cards to 4 players
+		for(int i=0;i<4;i++)
+		{
+			for(int j=0;j<9;j++) 
+			{
+				players[i][j] = deck.get(count1);
+				count1++;
+			}
+		}
+		
+		//printing the 2 D array 
+		for(int i=0;i<4;i++)
+		{
+			System.out.print("Player "+(i+1)+" ");
+			for(int j=0;j<9;j++) 
+			{
+				System.out.print(players[i][j]+" ");
+			}
+			System.out.println();
+		}
+
+	}
 	
 	
 	

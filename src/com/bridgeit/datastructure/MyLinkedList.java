@@ -2,8 +2,6 @@ package com.bridgeit.datastructure;
 
 import java.util.Iterator;
 
-
-
 public class MyLinkedList<T> 
 {
 	Node head;
