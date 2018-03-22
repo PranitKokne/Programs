@@ -1,6 +1,6 @@
 package com.bridgeit.datastructure;
 
-import java.util.Iterator;
+
 
 public class MyLinkedList<T> 
 {
@@ -195,7 +195,28 @@ public class MyLinkedList<T>
 		}
 	}
 	
-	
+	//get method 
+		public T get(int index) 
+		{
+			Node temp = head;
+			for(int i=0;i<index;i++) 
+			{
+				temp = temp.next;
+			}
+			return (T)temp.data;
+		}
+		
+		//set method
+		public void set(int index,T value) 
+		{
+			Node temp = head;
+			for(int i=0;i<index;i++) 
+			{
+				temp = temp.next;
+			}
+			temp.data = value;
+		}	
+		
 	//show
 	public void show() 
 	{
