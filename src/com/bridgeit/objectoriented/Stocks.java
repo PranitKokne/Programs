@@ -29,14 +29,14 @@ public class Stocks {
 	 * @param array JSON array
 	 * @return true if the operation is successful else false
 	 */
-	public static boolean fileWritingInJSON(String path,JSONArray object) 
+	public static boolean fileWritingInJSON(String path,JSONArray array) 
 	{
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		try {
 		fileWriter = new FileWriter(path);
 		bufferedWriter = new BufferedWriter(fileWriter);
-		bufferedWriter.write(object.toJSONString());
+		bufferedWriter.write(array.toJSONString());
 		return true;
 		}catch(IOException io) 
 		{
@@ -68,7 +68,7 @@ public class Stocks {
 	
 		try 
 		{
-			Object obj = parser.parse(new FileReader( "/home/bridgeit/Pranit/Stocks.json"));
+			Object obj = parser.parse(new FileReader( "/home/bridgeit/Pranit/Programs/JSONFiles/Stocks.json"));
 			
 			JSONArray jsonArray = (JSONArray) obj;
 			
@@ -125,7 +125,7 @@ public class Stocks {
 			
 
 		}
-		fileWritingInJSON("/home/bridgeit/Pranit/Stocks.json",array);
+		fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/Stocks.json",array);
 		stockEvalution(count);
 	}
 

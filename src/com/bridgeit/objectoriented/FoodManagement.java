@@ -63,7 +63,7 @@ public class FoodManagement {
 	
 		try 
 		{
-			Object obj = parser.parse(new FileReader( "/home/bridgeit/Pranit/Food.json"));
+			Object obj = parser.parse(new FileReader("/home/bridgeit/Pranit/Programs/JSONFiles/Food.json"));
 			
 			JSONArray jsonArray = (JSONArray) obj;
 			
@@ -167,7 +167,7 @@ public class FoodManagement {
 				break;
 				
 			default :
-				fileWritingInJSON("/home/bridgeit/Pranit/Food.json",array);
+				fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/Food.json",array);
 				flag = false;
 				
 			}

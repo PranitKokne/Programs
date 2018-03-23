@@ -2,6 +2,7 @@ package com.bridgeit.utility;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,10 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.bridgeit.datastructure.Customer;
 import com.bridgeit.datastructure.Queue;
@@ -1921,6 +1926,53 @@ public class Utility
 	}
 	
 	
+	//commercial data processing 
+	public static boolean fileWritingInJSON(String path,JSONArray array) 
+	{
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		try {
+		fileWriter = new FileWriter(path);
+		bufferedWriter = new BufferedWriter(fileWriter);
+		bufferedWriter.write(array.toJSONString());
+		return true;
+		}catch(IOException io) 
+		{
+			io.printStackTrace();
+		}
+		finally 
+		{
+			try {
+				bufferedWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
 	
+	
+	public static boolean fileReadingInJSON(String path,JSONObject object) 
+	{
+		
+		JSONParser parser = new JSONParser();
+		
+		try 
+		{
+			Object obj = parser.parse(new FileReader(path));
+			
+			JSONArray jsonArray = (JSONArray) obj;
+			
+			jsonArray.add(object);			
+			fileWritingInJSON(path,jsonArray);		
+			return true;
+		
+		}
+		catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		return false;
+	}
 	
 }
