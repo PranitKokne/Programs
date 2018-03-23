@@ -15,7 +15,12 @@ public class CommercialDataProcessing
 		File file = new File("/home/bridgeit/Pranit/Programs/JSONFiles/Customers.json");
 		boolean result = false;
 		
+		File secondFile = new File("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json");
+		boolean secondResult = false;
+		
+		
 		Utility util = new Utility();
+		StockAccount account = new StockAccount();
 		
 		System.out.println("Press 1 to open an account");
 		System.out.println("Press 2 to buy shares");
@@ -29,15 +34,23 @@ public class CommercialDataProcessing
 		long mobileNumber;
 		String emailId;
 		double balance;
-
-		JSONArray customers = new JSONArray();
+		long accountNo;
 		
+		String shareName;
+		long numberofShares;
+		
+		boolean feedback;
+		
+		JSONArray customers = new JSONArray();
+		JSONArray customersPortfolio = new JSONArray();
+		
+		JSONArray shareNames = new JSONArray();
+		JSONArray noofShares = new JSONArray();
 
+		
 		boolean flag = true;
 		while(flag)
-		{
-			
-			
+		{	
 			System.out.print("Enter your choice : ");
 			int choice = util.integerInput();
 			util.inputStringLine();
@@ -60,12 +73,15 @@ public class CommercialDataProcessing
 				emailId = util.inputStringLine();
 				System.out.print("Enter the amount for trading : ");
 				balance = util.doubleInput();
+				System.out.print("Choose an numeric account number : ");
+				accountNo = util.longInput();
 				
 				JSONObject customer = new JSONObject();
 				customer.put("Name", name);
 				customer.put("Mobile Number", mobileNumber);
 				customer.put("Email Id", emailId);
 				customer.put("Balance", balance);
+				customer.put("Account Number", accountNo);
 				
 				if(result) 
 				{
@@ -79,6 +95,50 @@ public class CommercialDataProcessing
 				break;
 				
 			case 2:
+				try {
+					secondResult = secondFile.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("Shares Details");
+				//account.printReport();
+				System.out.print("Enter your account Number : ");
+				accountNo = util.longInput();
+				//check whether account no is valid or not
+				feedback = account.authentication(accountNo);
+				if(feedback) 
+				{
+					System.out.print("Enter the company name whose share you want to buy : ");
+					shareName = util.inputString();
+					System.out.print("Enter the number of shares you want : ");
+					numberofShares = util.longInput();
+				
+					JSONObject portfolio = new JSONObject();
+					portfolio.put("Account Number", accountNo);
+					shareNames.add(shareName);
+					portfolio.put("Share Names", shareNames);
+					noofShares.add(numberofShares);
+					portfolio.put("Shares", noofShares);
+				//before adding check whether the same object is present in the array or not
+				//if yes remove it else not.
+											
+					if(secondResult) 
+					{
+						customersPortfolio.add(portfolio);
+						Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json",customersPortfolio);
+					}
+					else 
+					{
+						Utility.fileReadingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json",portfolio);
+					}
+					//call buy method
+					System.out.println(shareName+"'s "+numberofShares+" shares added to your account");
+				}
+				else 
+				{
+					System.out.println("Invalid Account Number");
+				}
 				
 				break;
 				
@@ -87,10 +147,20 @@ public class CommercialDataProcessing
 				break;
 				
 			case 4:
-				
+				System.out.println("over view of comapanies share price");
+				account.printReport();
 				break;
 				
 			case 5:
+				System.out.print("Enter your account number : ");
+				accountNo = util.longInput();
+				feedback = account.authentication(accountNo);
+				if(feedback) 
+				{
+					//portfolio value calculate
+					
+					
+				}
 				
 				break;
 				
