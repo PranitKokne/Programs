@@ -32,10 +32,6 @@ public class StockAccount
 		
 	}
 	
-	public void save() 
-	{
-		
-	}
 	//shares is a file we have to pull each object from that json file and we have to print it 
 	//in a 2 D from like a table....
 	public void printReport() 
@@ -55,7 +51,7 @@ public class StockAccount
 					JSONObject share = (JSONObject)stock.get(i);
 					String companyName =(String) share.get("Company Name");
 					report[i][j] = companyName;
-					long price =(long)share.get("Price/share");
+					long price =(long)share.get("Price");
 					report[i][++j] = Long.toString(price);
 					long sharesCount = (long) share.get("Available Shares");
 					report[i][++j] = Long.toString(sharesCount);
@@ -79,9 +75,9 @@ public class StockAccount
 		
 	}
 	
-	public void valueOf() 
+	public double valueOf() 
 	{
-		
+		return 0.0;
 	}
 	
 	
