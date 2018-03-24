@@ -125,5 +125,91 @@ public class StockAccount
 		return false;
 	}
 	
+	
+	
+	
+	
+	
+	
+	public static String[] shareName(String path,String companyName) 
+	{
+		JSONParser parser = new JSONParser();
+		try
+		{
+			JSONArray stocks = (JSONArray)parser.parse(new FileReader(path));
+			String[] shareName = new String[stocks.size()];
+			
+			for(int i=0;i<stocks.size();i++) 
+			{
+				JSONObject share = (JSONObject)stocks.get(i);
+				shareName[i] = (String)share.get(companyName);
+			}
+			return shareName;
+		
+		}catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	public static long[] sharesPrice(String path,String sharePrice) 
+	{
+		JSONParser parser = new JSONParser();
+		
+		try
+		{
+			JSONArray stocks = (JSONArray)parser.parse(new FileReader(path));
+			long[] price = new long[stocks.size()];
+			
+			for(int i=0;i<stocks.size();i++) 
+			{
+				JSONObject share = (JSONObject)stocks.get(i);
+				price[i] = (long) share.get(sharePrice);	
+			}
+			return price;
+		
+		}catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	public static JSONObject customerObject(String path,long accountNo) 
+	{
+		JSONParser parser = new JSONParser();
+		try
+		{
+			JSONArray customers = (JSONArray)parser.parse(new FileReader(path));
+			for(int i=0;i<customers.size();i++) 
+			{
+				JSONObject customer = (JSONObject)customers.get(i);
+				if((long)customer.get("Account Number") == accountNo) 
+				{
+					return customer;
+				}
+			}
+			
+		}catch(Exception ex) 
+		{
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

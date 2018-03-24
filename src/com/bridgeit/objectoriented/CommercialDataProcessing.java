@@ -27,7 +27,6 @@ public class CommercialDataProcessing
 		System.out.println("Press 3 to sell shares");
 		System.out.println("Press 4 to see the available shares of companies");
 		System.out.println("Press 5 to check the portfolio's value");
-		System.out.println("Press 6 to update your account details");
 		System.out.println("Press any other key to exit");
 			
 		String name;
@@ -158,13 +157,39 @@ public class CommercialDataProcessing
 				if(feedback) 
 				{
 					//portfolio value calculate
+					String[] sharename = account.shareName("/home/bridgeit/Pranit/Programs/JSONFiles/Shares.json","Company Name");
+					long[] price = account.sharesPrice("/home/bridgeit/Pranit/Programs/JSONFiles/Shares.json","Price/share");
 					
 					
+					JSONObject oneCustomer = account.customerObject("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json",accountNo);
+					
+					JSONArray companyName =  (JSONArray) oneCustomer.get("Share Names");
+					JSONArray shareCount = (JSONArray) oneCustomer.get("Share Count");
+					
+					System.out.println(companyName);
+					System.out.println(shareCount);
+					
+					double total = 0.0;
+					
+					for(int i=0;i<companyName.size();i++) 
+					{
+						String sname = (String)companyName.get(i);
+						long scount = (long)shareCount.get(i);
+						
+						for(int j=0;j<sharename.length;j++) 
+						{
+							if(sname.equals(sharename[j].replaceAll(" ", ""))) 
+							{
+								total = total+(scount*price[j]);
+							}
+						}
+					}
+					System.out.println("your portfolio estimated cost is "+total);
 				}
-				
-				break;
-				
-			case 6:
+				else 
+				{
+					System.out.println("Invalid account number");
+				}
 				
 				break;
 				
