@@ -1,0 +1,19 @@
+[
+{
+	"Account Number":10,
+	"Share Names":["Alphabet","Tesla","D-Mart"],
+	"Share Count":[10,15,20]
+},
+{
+	"Account Number":20,
+	"Share Names":["Infosys"],
+	"Share Count":[50]
+},
+{
+	"Account Number":30,
+	"Share Names":["MRF","Alphabet"],
+	"Share Count":[15,5]
+}
+]
+
+

@@ -26,11 +26,11 @@ public class Example3
 	 */
 	public static void main(String[] args) 
 	{
-		int output;
-		
+		int output;	
 		Utility util = new Utility();
 		
 		Long[] time = new Long[6];
+		String[] sorting = {"Binary Search Integer","Binary Search String","Insertion Sort Integer","Insertion Sort String","Bubble Sort Integer","Bubble Sort String"};
 		
 		long startTime = 0;
 		long stopTime = 0;
@@ -42,151 +42,109 @@ public class Example3
 		System.out.println("Press 4 for insertionSort method for String");
 		System.out.println("Press 5 for bubbleSort method for integer");
 		System.out.println("Press 6 for bubbleSort method for String");
+		System.out.println("Press any key to exit");
 		
 		boolean flag = true;
 		
 		while(flag) 
 		{
 			System.out.print("Enter your choice :");
-			int i = util.integerInput();
-			
-			System.out.print("Enter the size of an array :");
-			int size = util.integerInput();
-			
-			
-				Integer[] numbers = new Integer[size];
-			
-			
-			String[] names = new String[size];
-			
+			int choice = util.integerInput();
 		
-			switch(i) 
+			Integer[] numbers = {99,25,110,54,10,5};			
+			String[] names = {"pranit","kokne","anita","eknath","prajakta"};
+
+			switch(choice) 
 			{
 				
 			case 1:
-				int[] intarray = new int[size];
-				startTime=System.currentTimeMillis();
-				System.out.println("Enter the "+size+" integer elements");
-				for(int j=0;j<size;j++) 
-				{
-					intarray[j]=util.integerInput();
-				}
-				System.out.print("Enter the element you want to search :");
-				int search = util.integerInput();
-				
-				output = Utility.binarySearch(intarray, intarray.length, search);
+				startTime=System.nanoTime();
+				int[] intarray = {10,20,30,40,50};
+				output = Utility.binarySearch(intarray, intarray.length, 10);
 				if(output>=0) 
 				{
 					System.out.println("The element is present at "+output+ " index position.");
 				}
-				stopTime=System.currentTimeMillis();
+				stopTime=System.nanoTime();
 				elapsedTime=stopTime-startTime;
-				System.out.println("binary search integer : "+elapsedTime);
-				time[i-1]=elapsedTime;
+				//System.out.println("binary search integer : "+elapsedTime);
+				time[choice-1]=elapsedTime;
 				break;
 				
 				
 			case 2:
-				String[] stringarray1 = new String[size];
-				startTime=System.currentTimeMillis();
-				System.out.println("Enter the "+size+" string elements");
-				for(int j=0;j<size;j++) 
-				{
-					stringarray1[j]=util.inputString();
-				}
-				System.out.print("Enter the element you want to search :");
-				String element = util.inputString();
-				
-				output=Utility.binarySearchForString(stringarray1,stringarray1.length, element);
+				startTime=System.nanoTime();
+				String[] stringarray1 = {"aashish","balaji","champion","disco","epic"};			
+				output=Utility.binarySearchForString(stringarray1,stringarray1.length, "epic");
 				if(output>=0) 
 				{
 					System.out.println("The element is present at "+output+" index position.");
 				}
-				stopTime=System.currentTimeMillis();
+				stopTime=System.nanoTime();
 				elapsedTime=stopTime-startTime;
-				System.out.println("binary search String : "+elapsedTime);
-				time[i-1]=elapsedTime;
+				//System.out.println("binary search String : "+elapsedTime);
+				time[choice-1]=elapsedTime;
 				break;
 				
 				
 			case 3:
-				
-				startTime=System.currentTimeMillis();
-				System.out.println("Enter the "+size+" integer elements");
-				for(int j=0;j<size;j++) 
-				{
-					numbers[j]=util.integerInput();
-				}
-				
+				startTime=System.nanoTime();
 				Utility.insertionSorting(numbers,numbers.length);
-				stopTime=System.currentTimeMillis();
+				stopTime=System.nanoTime();
 				elapsedTime=stopTime-startTime;
-				System.out.println("insertion sort integer : "+elapsedTime);
-				time[i-1]=elapsedTime;
+				//System.out.println("insertion sort integer : "+elapsedTime);
+				time[choice-1]=elapsedTime;
 				break;
 				
 				
 			case 4:
-				
-				startTime=System.currentTimeMillis();
-				System.out.println("Enter the "+size+" string elements");
-				for(int j=0;j<size;j++) 
-				{
-					names[j]=util.inputString();
-				}
-				
+				startTime=System.nanoTime();
 				Utility.insertionSorting(names,names.length);
-				stopTime=System.currentTimeMillis();
+				stopTime=System.nanoTime();
 				elapsedTime=stopTime-startTime;
-				System.out.println("insertion sort String : "+elapsedTime);
-				time[i-1]=elapsedTime;
+				//System.out.println("insertion sort String : "+elapsedTime);
+				time[choice-1]=elapsedTime;
 				break;
 				
 				
 			case 5:
-				
-				startTime=System.currentTimeMillis();
-				System.out.println("Enter the "+size+" integer elements");
-				for(int j=0;j<size;j++) 
-				{
-					numbers[j]=util.integerInput();
-				}
-				
+				startTime=System.nanoTime();
 				Utility.bubbleSort(numbers, numbers.length);
-				stopTime=System.currentTimeMillis();
+				stopTime=System.nanoTime();
 				elapsedTime=stopTime-startTime;
-				System.out.println("bubble sort integer : "+elapsedTime);
-				time[i-1]=elapsedTime;
+				//System.out.println("bubble sort integer : "+elapsedTime);
+				time[choice-1]=elapsedTime;
 				break;
 				
 				
 			case 6:
-				
-				startTime=System.currentTimeMillis();
-				System.out.println("Enter the "+size+" string elements");
-				for(int j=0;j<size;j++) 
-				{
-					names[j]=util.inputString();
-				}
-				
+				startTime=System.nanoTime();				
 				Utility.bubbleSort(names, names.length);
-				stopTime=System.currentTimeMillis();
+				stopTime=System.nanoTime();
 				elapsedTime=stopTime-startTime;
-				System.out.println("bubble sort String : "+elapsedTime);
-				time[i-1]=elapsedTime;
+				//System.out.println("bubble sort String : "+elapsedTime);
+				time[choice-1]=elapsedTime;
 				break;
 				
-				
 			default:
-				flag=false;
+				Long[] sortTime = time;
+				Utility.bubbleSort(sortTime,sortTime.length);
+				for(int i=sortTime.length-1;i>=0;i--) 
+				{
+					for(int j=0;j<time.length;j++) 
+					{
+						if(sortTime[i] == time[j]) 
+						{
+							System.out.println("Elapsed time for "+sorting[j]+" : "+sortTime[i]+" nanoseconds");
+						}
+					}
+				}
+				flag = false;
+				System.exit(0);
 			}
+
 		}
 		
-		Utility.bubbleSort(time,time.length);
-		for(int i=time.length-1;i>=0;i--) 
-		{
-			System.out.print(time[i]+" ");
-		}
 	}
 	
 

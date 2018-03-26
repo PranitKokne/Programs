@@ -1,13 +1,1 @@
-[{
-	"Account Number": 10,
-	"Balance": 1000000.0,
-	"Name": "Pranit Kokne"
-}, {
-	"Account Number": 20,
-	"Balance": 500000.0,
-	"Name": "Harshal Giramkar"
-}, {
-	"Account Number": 30,
-	"Balance": 500000.0,
-	"Name": "Pushpak More"
-}]
+[{"Account Number":10,"Balance":899000.0,"Name":"Pranit Kokne"},{"Account Number":20,"Balance":360000.0,"Name":"Harshal Giramkar"},{"Account Number":30,"Balance":412000.0,"Name":"Pushpak More"}]

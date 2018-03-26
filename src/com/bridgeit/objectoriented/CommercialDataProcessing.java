@@ -2,10 +2,8 @@ package com.bridgeit.objectoriented;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import com.bridgeit.utility.Utility;
 
 public class CommercialDataProcessing 
@@ -15,8 +13,8 @@ public class CommercialDataProcessing
 		File file = new File("/home/bridgeit/Pranit/Programs/JSONFiles/Customers.json");
 		boolean result = false;
 		
-		File secondFile = new File("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json");
-		boolean secondResult = false;
+		File thirdFile = new File("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json");
+		boolean thirdResult = false;
 		
 		
 		Utility util = new Utility();
@@ -51,6 +49,11 @@ public class CommercialDataProcessing
 			System.out.print("Enter your choice : ");
 			int choice = util.integerInput();
 			util.inputStringLine();
+			
+			
+			boolean tradeResult = false;
+			boolean availableResult = false;
+			
 			switch(choice) 
 			{
 			case 1:
@@ -85,9 +88,80 @@ public class CommercialDataProcessing
 				break;
 				
 			case 2:
+				try 
+				{
+					thirdResult = thirdFile.createNewFile();
+				}catch(IOException io) 
+				{
+					io.printStackTrace();
+				}
+				
+				System.out.print("Enter your account number : ");
+				accountNo= util.longInput();
+				result = StockAccount.authentication(accountNo);
+				if(result) 
+				{
+					System.out.print("Enter the company name whose share you want to buy : ");
+					shareName = util.inputString();
+					System.out.print("Enter the number of shares you want : ");
+					numberofShares = util.longInput();
+					//check shares are available for buying....
+					availableResult = StockAccount.isAvailable(numberofShares,shareName);
+					//System.out.println(availableResult);
+					if(availableResult) 
+					{
+						/*
+						 * case 1 : customers portfolio doesn't exist so it's first object just write it to the cp.json file
+						 * case 2 : new customer bought shares so write it to the cp.json file
+						 * case 3 : update the cp.json on the basis of account number.
+						 */
+						boolean operationResult;
+						if(thirdResult) 
+						{
+							//write first json object into json array.
+							//create a method that will do this job for you
+							operationResult = StockAccount.portfolioDoesNotExit(shareName, numberofShares, accountNo,"First");
+							if(operationResult)
+								tradeResult = StockAccount.buy(shareName, numberofShares, accountNo, "notpresent");
+						}
+						else 
+						{
+							//check customer is present in the cp.json file or not
+							//if yes then 
+							boolean authenticationResult = StockAccount.authenticationofCustomersPortfolio(accountNo);
+							if(authenticationResult) 
+							{
+								tradeResult = StockAccount.buy(shareName,numberofShares,accountNo,"present");
+							}
+							else 
+							{
+								operationResult = StockAccount.portfolioDoesNotExit(shareName, numberofShares, accountNo, "Second");
+								if(operationResult)
+									tradeResult = StockAccount.buy(shareName, numberofShares, accountNo, "notpresent");
+							}					
+						}
+						if(tradeResult)
+						{
+							System.out.println(shareName+"'s "+numberofShares+" shares are added to your account");
+						}
+						else
+						{
+							System.out.println("Error in adding the shares to your account");
+						}
+					}
+					else 
+					{
+						System.out.println("Insufficient shares...");
+					}
+				}
+				else 
+				{
+					System.out.println("Invalid account number");
+				}
+				break;
 								
 			case 3:
-				
+			
 				break;
 				
 			case 4:
@@ -98,12 +172,12 @@ public class CommercialDataProcessing
 			case 5:
 				System.out.print("Enter your account number : ");
 				accountNo = util.longInput();
-				feedback = account.authentication(accountNo);
+				feedback = StockAccount.authentication(accountNo);
 				if(feedback) 
 				{
 					//portfolio value calculate
-					String[] sharename = StockAccount.shareName("/home/bridgeit/Pranit/Programs/JSONFiles/Shares.json","Company Name");
-					long[] price = StockAccount.sharesPrice("/home/bridgeit/Pranit/Programs/JSONFiles/Shares.json","Price");
+					String[] sharename = StockAccount.retrieveString("/home/bridgeit/Pranit/Programs/JSONFiles/Shares.json","Company Name");
+					long[] price = StockAccount.retrieveLong("/home/bridgeit/Pranit/Programs/JSONFiles/Shares.json","Price");
 					
 					
 					JSONObject oneCustomer = StockAccount.customerObject("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json",accountNo);

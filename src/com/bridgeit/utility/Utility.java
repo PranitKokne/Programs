@@ -813,6 +813,21 @@ public class Utility
 	}
 	
 	/**
+	 * the method calculates middle index based on the start and end value
+	 * 
+	 * @param start index of an array
+	 * @param end index of an array
+	 * @return the middle element's index
+	 */
+	public static int midCalculator(int start, int end) 
+	{
+		int middle = (start+end)/2;
+		return middle;
+	}
+	
+	
+	
+	/**
 	 * function mergeSort merge the two unsorted array into a third array
 	 * 
 	 * @param i holds the index of left array
