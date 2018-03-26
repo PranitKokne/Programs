@@ -20,24 +20,12 @@ public class StockAccount
 	double balance;
 	long accountNo;
 
-	public StockAccount() 
-	{
-		
-		
-	}
-	
-	/*public void buy() 
-	{
-		
-	}
-	
-	public void sell() 
-	{
-		
-	}*/
 	
 	//shares is a file we have to pull each object from that json file and we have to print it 
 	//in a 2 D from like a table....
+	/**
+	 * the method print the portfolio cost for a particular customer
+	 */
 	public void printReport() 
 	{
 		String[][] report = new String[5][3];
@@ -79,10 +67,6 @@ public class StockAccount
 		
 	}
 	
-	/*public double valueOf() 
-	{
-		return 0.0;
-	}*/
 	
 	
 	
@@ -108,52 +92,7 @@ public class StockAccount
 	
 	
 	
-	public static String[] shareName(String path,String companyName) 
-	{
-		JSONParser parser = new JSONParser();
-		try
-		{
-			JSONArray stocks = (JSONArray)parser.parse(new FileReader(path));
-			String[] shareName = new String[stocks.size()];
-			
-			for(int i=0;i<stocks.size();i++) 
-			{
-				JSONObject share = (JSONObject)stocks.get(i);
-				shareName[i] = (String)share.get(companyName);
-			}
-			return shareName;
-		
-		}catch(Exception ex) 
-		{
-			ex.printStackTrace();
-		}
-		return null;
-	}
 	
-	
-	
-	public static long[] sharesPrice(String path,String sharePrice) 
-	{
-		JSONParser parser = new JSONParser();
-		
-		try
-		{
-			JSONArray stocks = (JSONArray)parser.parse(new FileReader(path));
-			long[] price = new long[stocks.size()];
-			
-			for(int i=0;i<stocks.size();i++) 
-			{
-				JSONObject share = (JSONObject)stocks.get(i);
-				price[i] = (long) share.get(sharePrice);	
-			}
-			return price;
-		
-		}catch(Exception ex) 
-		{
-			ex.printStackTrace();
-		}
-		return null;
-	}
 	
 	
 	
@@ -318,6 +257,7 @@ public class StockAccount
 			{
 				JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 				JSONArray count =   (JSONArray) jsonObject.get(name);
+				
 				valueArray[i] = new long[count.size()];
 				for(int j=0;j<count.size();j++) 
 				{
@@ -360,6 +300,11 @@ public class StockAccount
 
 
 	
+	/**
+	 *the method verifies the account number entered by the user is valid or not.
+	 * @param accountNo entered by the user.
+	 * @return true if the account number is valid else false.
+	 */
 	public static boolean authentication(long accountNo) 
 	{
 		JSONParser parser = new JSONParser();
@@ -384,7 +329,11 @@ public class StockAccount
 		
 		return false;
 	}
-	
+	/**
+	 *the method verifies the account number entered by the user is valid or not.
+	 * @param accountNo entered by the user.
+	 * @return true if the account number is valid else false.
+	 */
 	public static boolean authenticationofCustomersPortfolio(long accountNo) 
 	{
 		JSONParser parser = new JSONParser();
@@ -511,24 +460,23 @@ public class StockAccount
 							if(shareCount - numberofShares >= 0)
 							{
 								shareCount = shareCount - numberofShares;
-							}
-							result = writeSameObjectIntoShares(shareName,shareCount);
-							if(result) 
-							{
-								return true;
-							}
+							}							
 						}
 						else if(trade.equals("sell")) 
 						{
 							if(shareCount + numberofShares <=200)
 							{
 								shareCount = shareCount + numberofShares;
-							}	
-							result = writeSameObjectIntoShares(shareName,shareCount);
-							if(result) 
-							{
-								return true;
 							}
+							else 
+							{
+								return false;
+							}
+						}
+						result = writeSameObjectIntoShares(shareName,shareCount);
+						if(result) 
+						{
+							return true;
 						}
 				}
 				
@@ -554,7 +502,6 @@ public class StockAccount
 		try 
 		{
 			JSONArray shares = (JSONArray) parser.parse(new FileReader("/home/bridgeit/Pranit/Programs/JSONFiles/Shares.json"));
-			System.out.println(shares);
 			
 			for(int i=0;i<shares.size();i++) 
 			{
@@ -645,6 +592,16 @@ public class StockAccount
 	 * 5.then only return true
 	 */
 	
+	/**
+	 * buys the shares of a particular company for a customer
+	 * 
+	 * @param shareName the company name whose share the customer wants to buy
+	 * @param numberofShares the customer want to buy
+	 * @param accountNo of the customer
+	 * @param type it is used to check whether the customers is already present in 
+	 * 		  the customers portfolio file or not
+	 * @return true if the buy operation is successful else false
+	 */
 	public static boolean buy(String shareName,long numberofShares,long accountNo,String type) 
 	{
 		//checking balance
@@ -653,11 +610,11 @@ public class StockAccount
 			//step 2
 			if(updateShareCount(shareName,numberofShares,"buy")) 
 			{
-				if(updateBalanceOfCustomer(shareName,numberofShares,accountNo)) 
+				if(updateBalanceOfCustomer(shareName,numberofShares,accountNo,"buy")) 
 				{
 					if("present".equals(type)) 
 					{
-						if(updateCustomersPortfolio(shareName,numberofShares,accountNo)) 
+						if(updateCustomersPortfolioWhileBuying(shareName,numberofShares,accountNo)) 
 						{
 							return true;
 						}
@@ -680,9 +637,35 @@ public class StockAccount
 		return false;
 	}
 	
-	public static boolean updateBalanceOfCustomer(String shareName,long numberofShares,long accountNo) 
+	/**
+	 *sells the shares of a particular company for a customer
+	 * 
+	 * @param shareName the company whose share the customer want to sell
+	 * @param numberofShares the customer want to sell
+	 * @param accountNo of the customer
+	 * @return true if the sell operation is successful else false
+	 */
+	public static boolean sell(String shareName,long numberofShares,long accountNo) 
 	{
-		double updatedBalance = changeBalanceOfCustomer(shareName,numberofShares,accountNo);
+		if(updateShareCount(shareName,numberofShares,"sell")) 
+		{
+			if(updateCustomersPortfolioWhileSelling(shareName,numberofShares,accountNo)) 
+			{
+				if(updateBalanceOfCustomer(shareName,numberofShares,accountNo,"sell")) 
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	
+	
+	
+	public static boolean updateBalanceOfCustomer(String shareName,long numberofShares,long accountNo,String trade) 
+	{
+		double updatedBalance = changeBalanceOfCustomer(shareName,numberofShares,accountNo,trade);
 		
 		boolean result = writeSameObjectIntoCustomers(accountNo,updatedBalance);
 		
@@ -694,7 +677,7 @@ public class StockAccount
 	}
 	
 	
-	public static double changeBalanceOfCustomer(String shareName,long numberofShares,long accountNo) 
+	public static double changeBalanceOfCustomer(String shareName,long numberofShares,long accountNo,String trade) 
 	{
 		JSONParser parser = new JSONParser();
 		try 
@@ -722,7 +705,14 @@ public class StockAccount
 							sprice = (long) share.get("Price");
 						}
 					}
-					balance = balance - (numberofShares*sprice);
+					if(trade.equals("buy")) 
+					{
+						balance = balance - (numberofShares*sprice);
+					}
+					else if(trade.equals("sell")) 
+					{
+						balance = balance + (numberofShares*sprice);
+					}
 					return balance;
 				}
 			}
@@ -735,7 +725,7 @@ public class StockAccount
 		return 0.0;
 	}
 	
-	public static boolean updateCustomersPortfolio(String shareName,long numberofShares,long accountNo) 
+	public static boolean updateCustomersPortfolioWhileBuying(String shareName,long numberofShares,long accountNo) 
 	{
 		boolean flag = false;
 		long[] accountNumber = retrieveLong("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json","Account Number");
@@ -867,7 +857,90 @@ public class StockAccount
 	}
 
 	
-	
+	public static boolean updateCustomersPortfolioWhileSelling(String shareName,long numberofShares,long accountNo) 
+	{
+		long[] accountNumber = retrieveLong("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json","Account Number");
+		long[][] sharecount = retrieveLong2DArray("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json","Share Count");
+		String[][] sharename = retrieveString2DArray("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json","Share Names");
+		
+		JSONParser parser = new JSONParser();
+		JSONArray updatedPortfolio = new JSONArray();
+		try
+		{
+			JSONArray portfolio = (JSONArray) parser.parse(new FileReader("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json"));
+			for(int i=0;i<portfolio.size();i++) 
+			{
+				JSONObject oneCustPortfolio = (JSONObject) portfolio.get(i);
+				
+				JSONObject updatedOneCustPortfolio = new JSONObject();
+				
+				JSONArray updatedShareName = new JSONArray();
+				JSONArray increaseShareCount = new JSONArray();
+				
+				String[] oneCustShares; long[] oneCustShareCount;
+				
+				long accNo =(long) oneCustPortfolio.get("Account Number");
+				
+				if(accNo == accountNo) 
+				{
+					updatedOneCustPortfolio.put("Account Number", accountNo);
+					oneCustShares = sharename[i];
+					oneCustShareCount = sharecount[i];
+					
+					for(int d=0;d<oneCustShares.length;d++) 
+					{
+						if(shareName.equals(oneCustShares[d])) 
+						{
+							if(oneCustShareCount[d]>=numberofShares) 
+							{
+								long shareCount = oneCustShareCount[d] - numberofShares;
+								if(shareCount!=0) 
+								{
+									updatedShareName.add(oneCustShares[d]);
+									increaseShareCount.add(shareCount);
+								}
+							}
+							else 
+							{
+								System.out.println("Insufficient shares");
+								return false;
+							}
+						}
+						else 
+						{
+							updatedShareName.add(oneCustShares[d]);
+							increaseShareCount.add(oneCustShareCount[d]);
+						}
+					}
+					updatedOneCustPortfolio.put("Share Names", updatedShareName);
+					updatedOneCustPortfolio.put("Share Count", increaseShareCount);
+				}
+				else 
+				{
+					updatedOneCustPortfolio.put("Account Number", accountNumber[i]);
+					for(int a=0;a<sharename[i].length;a++) 
+					{
+						updatedShareName.add(sharename[i][a]);
+					}
+					updatedOneCustPortfolio.put("Share Names", updatedShareName);
+					for(int b=0;b<sharecount[i].length;b++) 
+					{
+						increaseShareCount.add(sharecount[i][b]);
+					}
+					updatedOneCustPortfolio.put("Share Count", increaseShareCount);
+				}
+				updatedPortfolio.add(updatedOneCustPortfolio);
+			}
+			fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/CustomersPortfolio.json",updatedPortfolio);
+			return true;
+			
+		} 
+		catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 	

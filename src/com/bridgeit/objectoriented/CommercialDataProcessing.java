@@ -1,3 +1,14 @@
+/**
+ * Purpose :The program allows a user to open account for trading.it also allows a user
+ * 			to buy and sell shares of companies.the user can also see the available shares 
+ * 			of companies and it's portfolio's estimated cost.
+ * 
+ * @author Pranit_Kokne
+ * @version 1.0
+ * @since 26-03-2018
+ *
+ */
+
 package com.bridgeit.objectoriented;
 
 import java.io.File;
@@ -103,7 +114,7 @@ public class CommercialDataProcessing
 				{
 					System.out.print("Enter the company name whose share you want to buy : ");
 					shareName = util.inputString();
-					System.out.print("Enter the number of shares you want : ");
+					System.out.print("Enter the number of shares you want to buy : ");
 					numberofShares = util.longInput();
 					//check shares are available for buying....
 					availableResult = StockAccount.isAvailable(numberofShares,shareName);
@@ -161,7 +172,29 @@ public class CommercialDataProcessing
 				break;
 								
 			case 3:
-			
+				System.out.print("Enter your account number : ");
+				accountNo= util.longInput();
+				result = StockAccount.authentication(accountNo);
+				if(result) 
+				{
+					System.out.print("Enter the company name whose share you want to sell : ");
+					shareName = util.inputString();
+					System.out.print("Enter the number of shares you want to sell : ");
+					numberofShares = util.longInput();
+					tradeResult = StockAccount.sell(shareName, numberofShares, accountNo);
+					if(tradeResult) 
+					{
+						System.out.println(shareName+"'s "+numberofShares+" shares sold.");
+					}
+					else 
+					{
+						System.out.println("Error in selling the shares");
+					}
+				}
+				else 
+				{
+					System.out.println("Invalid account number");
+				}
 				break;
 				
 			case 4:
