@@ -1,0 +1,26 @@
+[{
+		"Company Name": "Infosys ",
+		"Price": 1200,
+		"Available Shares": 200
+	},
+	{
+		"Company Name": "D-Mart  ",
+		"Price": 1300,
+		"Available Shares": 200
+	},
+	{
+		"Company Name": "MRF     ",
+		"Price": 7000,
+		"Available Shares": 200
+	},
+	{
+		"Company Name": "Alphabet",
+		"Price": 6800,
+		"Available Shares": 200
+	},
+	{
+		"Company Name": "Tesla   ",
+		"Price": 2000,
+		"Available Shares": 200
+	}
+]
