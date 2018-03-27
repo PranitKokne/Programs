@@ -1,12 +1,4 @@
 [{
-	"Zip": 400709,
-	"Address": "C:6,1.1,Koparkhairane",
-	"State": "Maharashtra",
-	"First Name": "Pranit",
-	"City": "Navi Mumbai",
-	"Last Name": "Kokne",
-	"Phone Number": 9594138812
-}, {
 	"Zip": 400705,
 	"Address": "Vashi Sector 10 B-10",
 	"State": "Maharashtra",
@@ -30,4 +22,12 @@
 	"City": "Hydrabad",
 	"Last Name": "Chavan",
 	"Phone Number": 9594138814
+}, {
+	"Zip": 400709,
+	"Address": "C:6,1.1,Koparkhairane",
+	"State": "Maharashtra",
+	"First Name": "Pranit",
+	"City": "Navi Mumbai",
+	"Last Name": "Kokne",
+	"Phone Number": 9594138812
 }]

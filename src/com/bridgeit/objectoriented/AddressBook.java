@@ -1,15 +1,30 @@
+/**
+ * 
+ * Purpose :The program can be used to maintain an address book.
+ * 			An address book holds a collection of entries,each recording a person's
+ * 			first and last names,address,city,state,zip code and phone number.
+ * 
+ * @author Pranit_Kokne
+ * @version 1.0
+ * @since 27-03-2018
+ *
+ */
+
 package com.bridgeit.objectoriented;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 import com.bridgeit.utility.Utility;
 
 public class AddressBook {
 
+	/**
+	 *the main method gives the user 7 choices whether the user can add a new person to the address book,
+	 *update the information of the existing person,delete a particular person,sort the address book 
+	 *by the last name or by zip code and he can print all the entries in the address book
+	 */
 	public static void main(String[] args) 
 	{
 		Utility util = new Utility();
@@ -91,6 +106,8 @@ public class AddressBook {
 			case 2:
 				System.out.print("Enter the First Name of the person you want to edit : ");
 				firstName = util.inputString();
+				System.out.print("Enter the Last Name : ");
+				lastName = util.inputString();
 				System.out.print("Enter the Address : ");
 				util.inputStringLine();
 				address = util.inputStringLine();
@@ -103,7 +120,15 @@ public class AddressBook {
 				System.out.print("Enter the phone number : ");
 				phoneNumber = util.longInput();
 				
-				operationResult = AddressBookImplementation.editPersonInformation(firstName,address,city,state,zip,phoneNumber);
+				operationResult = AddressBookImplementation.editPersonInformation(firstName,lastName,address,city,state,zip,phoneNumber);
+				if(operationResult) 
+				{
+					System.out.println(firstName+" your information is updated successfully");
+				}
+				else 
+				{
+					System.out.println("Error in updating the information");
+				}
 				break;
 				
 			case 3:
@@ -121,12 +146,27 @@ public class AddressBook {
 				break;
 				
 			case 4:
-				
+				operationResult = AddressBookImplementation.sortByLastName();
+				if(operationResult) 
+				{
+					System.out.println("Sorting successful");
+				}
+				else 
+				{
+					System.out.println("Error in sorting");
+				}
 				break;
 				
 			case 5:
-				
-				
+				operationResult = AddressBookImplementation.sortByZip();
+				if(operationResult) 
+				{
+					System.out.println("Sorting successful");
+				}
+				else 
+				{
+					System.out.println("Error in sorting");
+				}
 				break;
 				
 			case 6:

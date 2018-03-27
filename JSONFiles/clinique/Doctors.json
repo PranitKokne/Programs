@@ -1,0 +1,52 @@
+[
+{
+	"Name":"Dr. Ashok Seth",
+	"ID":1,
+	"Specialization":"Cardiologist",
+	"Availability":["PM"]
+},
+{
+	"Name":"Dr. Ajay Kaul",
+	"ID":2,
+	"Specialization":"Cardiologist",
+	"Availability":["AM","PM","Both"]
+},
+{
+	"Name":"Dr. Ram Kumar",
+	"ID":3,
+	"Specialization":"Psychiatrist",
+	"Availability":["PM"]
+},
+{
+	"Name":"Dr. Ramesh Iyer",
+	"ID":4,
+	"Specialization":"Pediatrician",
+	"Availability":["AM","PM","Both"]
+},
+{
+	"Name":"Dr. Veena Bhat",
+	"ID":5,
+	"Specialization":"Gynecologist",
+	"Availability":["AM","PM","Both"]
+},
+{
+	"Name":"Dr. Aparna Santhanam",
+	"ID":6,
+	"Specialization":"Dermatologist",
+	"Availability":["AM"]
+},
+{
+	"Name":"Dr. Naresh Bhat",
+	"ID":,
+	"Specialization":"Gastroenterologist",
+	"Availability":["AM","PM","Both"]
+},
+{
+	"Name":"Dr. Amitabha Ghosh",
+	"ID":,
+	"Specialization":"Neurologist",
+	"Availability":["PM"]
+},
+
+
+]
