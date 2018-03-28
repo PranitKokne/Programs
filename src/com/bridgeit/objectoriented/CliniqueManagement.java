@@ -1,7 +1,5 @@
 package com.bridgeit.objectoriented;
 
-import java.io.File;
-
 import com.bridgeit.utility.Utility;
 
 public class CliniqueManagement {
@@ -17,11 +15,12 @@ public class CliniqueManagement {
 		System.out.println("Press 4 to search doctor by availability");
 		System.out.println("Press 5 to take an appointment with the doctor");
 		System.out.println("Press 6 to print the doctor patient report");
-		System.out.println("Press 7 to check the popular specialization is popular");
+		System.out.println("Press 7 to check the which specialization is popular");
 		System.out.println("Press 8 to check the most popular doctor of the clinique");
 		
 		String doctorName; int doctorId; String specialization; String time;
 		boolean flag = true;
+		boolean appointmentResult;
 		boolean result;
 		while(flag) 
 		{
@@ -77,11 +76,12 @@ public class CliniqueManagement {
 				
 			case 5 : 
 				System.out.print("Enter patient name : ");
-				String patientName = util.inputStringLine();
+				String patientName = util.inputString();
 				System.out.print("Enter the doctor's name whose appointment you want : ");
+				util.inputStringLine();
 				doctorName = util.inputStringLine();
-				result = CliniqueManagementImplementation.isAppointmentAvailable(doctorName, patientName,"firstTry");
-				if(result) 
+				appointmentResult = CliniqueManagementImplementation.isAppointmentAvailable(doctorName, patientName);
+				if(appointmentResult) 
 				{
 					System.out.println(patientName+" your appointment is fixed.");
 				}
@@ -93,10 +93,12 @@ public class CliniqueManagement {
 					String response = util.inputString();
 					if(response.equals("yes")) 
 					{
-						result = CliniqueManagementImplementation.isAppointmentAvailable(doctorName, patientName,"!firstTry");
-						if(result) 
+						System.out.print("Enter the date : ");
+						String date = util.inputString();
+						appointmentResult = CliniqueManagementImplementation.isAppointmentAvailableForNextDay(doctorName, patientName,date);
+						if(appointmentResult) 
 						{
-							
+							System.out.println(patientName+" your appointment is fixed.");
 						}
 					}
 					else 
@@ -110,12 +112,17 @@ public class CliniqueManagement {
 				break;
 				
 			case 6 : 
+				CliniqueManagementImplementation.getReport();
 				break;
 				
 			case 7 : 
+				String popularSpecialization = CliniqueManagementImplementation.getMaximumValue("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/Doctors.json", "Specialization");
+				System.out.println("The popular specialization is "+popularSpecialization);
 				break;
 				
 			case 8 : 
+				String popularDoctor = CliniqueManagementImplementation.getMaximumValue("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json","Doctor Name");
+				System.out.println("The popular doctor of the clinique is "+popularDoctor);
 				break;
 				
 			default : 

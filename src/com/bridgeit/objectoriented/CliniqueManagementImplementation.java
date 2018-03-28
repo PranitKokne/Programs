@@ -5,7 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -134,134 +137,186 @@ public class CliniqueManagementImplementation
 	}
 	
 	
-	public static boolean isAppointmentAvailable(String doctorName,String patientName,String type) 
+	/**
+	 * the method fix the appointment for the patient for the current day.
+	 * 
+	 * @param doctorName name of the doctor
+	 * @param patientName name of the patient
+	 * @return true if the appointment is fixed else false
+	 */
+	public static boolean isAppointmentAvailable(String doctorName,String patientName) 
 	{
-		File file = new File("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/Appointment.json");
-		boolean fileCreationResult = false;
-		
-		try {
-			fileCreationResult = file.createNewFile();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		//this 2 are related to appointment.json
-		JSONArray appointments = new JSONArray();
-		JSONObject oneAppointment = new JSONObject();
-		
-		//this 2 are related to appointmentCount.json
-		JSONArray updatedAppointmentCount = new JSONArray();
-		JSONObject updatedAppPossible = new JSONObject();
+		File file = new File("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json");
+		boolean fileCreationResult =false;
 		
 		JSONParser parser = new JSONParser();
-		
-		try 
-		{	
-			long updatedCount ;
+		JSONArray fixAppointment = new JSONArray(); //appointment.json
+		long retrievedMorningCount; long retrievedEveningCount;
+		try
+		{
 			JSONArray appointmentCount = (JSONArray) parser.parse(new FileReader("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json"));
-			JSONObject appPossible = new JSONObject();
 			for(int i=0;i<appointmentCount.size();i++) 
 			{
-				appPossible = (JSONObject) appointmentCount.get(i);
-				if(doctorName.equals((String)(appPossible.get("Name"))))
+				JSONObject checkCount = (JSONObject) appointmentCount.get(i);
+				
+				JSONObject oneAppointment = new JSONObject(); //writing the one object into JSON array
+				
+				
+				if(doctorName.equals((String)(checkCount.get("Name")))) 
 				{
-					if("AM".equals((String)appPossible.get("Availability"))) 
+					fileCreationResult = file.createNewFile();
+					//check availability
+					if("AM".equals((String)(checkCount.get("Availability")))) 
 					{
-						if((long)appPossible.get("morning count")>0) 
+						retrievedMorningCount = (long)(checkCount.get("morning count"));
+						//check morning count if it is >0 then only fix appointment
+						if(retrievedMorningCount>0) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
 							oneAppointment.put("Patient Name", patientName);
-							oneAppointment.put("Date", getDate());
-							//count decrease
+							oneAppointment.put("Date",getDate());
 							
-							updatedCount = (long) appPossible.get("morning count");
-							updatedAppPossible.put("morning count", (updatedCount-1));
+							if(fileCreationResult) 
+							{
+								fixAppointment.add(oneAppointment);
+								Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",fixAppointment);
+							}
+							else 
+							{
+								Utility.fileReadingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",oneAppointment);
+							}
+							//then decrease morning count
+							//remove that object from array
+							//then add new object to the array with the updated count 
+							//and write the entire array into file again
+							
+							checkCount.put("Name", doctorName);
+							checkCount.put("Availability", "AM");
+							checkCount.put("morning count", (retrievedMorningCount-1));
+							appointmentCount.set(i, checkCount);
+							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
+							return true;
 						}
 						else 
 						{
-							//count assign to 5 again
-							updatedAppPossible.put("morning count", 5);
+							//reassign morning count to 5 and return false
+							checkCount.put("Name", doctorName);
+							checkCount.put("Availability", "AM");
+							checkCount.put("morning count", 5);
+							appointmentCount.set(i, checkCount);
+							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return false;
 						}
-						updatedAppPossible.put("Name", (String)(appPossible.get("Name")));
-						updatedAppPossible.put("Name", (String)(appPossible.get("Availability")));
 					}
-					else if("PM".equals((String)appPossible.get("Availability"))) 
+					else if("PM".equals((String)(checkCount.get("Availability")))) 
 					{
-						if((long)appPossible.get("evening count")>0) 
+						retrievedEveningCount =(long)(checkCount.get("evening count"));
+						//check evening count if it is >0 then only fix appointment
+						if(retrievedEveningCount>0) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
 							oneAppointment.put("Patient Name", patientName);
-							oneAppointment.put("Date", getDate());
-							//count decrease
+							oneAppointment.put("Date",getDate());
 							
-							updatedCount = (long) appPossible.get("evening count");
-							updatedAppPossible.put("Name", (updatedCount-1));
-
+							if(fileCreationResult) 
+							{
+								fixAppointment.add(oneAppointment);
+								Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",fixAppointment);
+							}
+							else 
+							{
+								Utility.fileReadingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",oneAppointment);
+							}
+							//then decrease evening count
+							checkCount.put("Name", doctorName);
+							checkCount.put("Availability", "PM");
+							checkCount.put("evening count", (retrievedEveningCount-1));
+							appointmentCount.set(i, checkCount);
+							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
+							return true;
 						}
 						else 
 						{
-							//count assign to 5 again
-							updatedAppPossible.put("evening count", 5);
+							//reassign evening count to 5 and return false
+							checkCount.put("Name", doctorName);
+							checkCount.put("Availability", "PM");
+							checkCount.put("evening count", 5);
+							appointmentCount.set(i, checkCount);
+							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return false;
 						}
-						updatedAppPossible.put("Name", (String)(appPossible.get("Name")));
-						updatedAppPossible.put("Name", (String)(appPossible.get("Availability")));
+						
 					}
 					else 
 					{
-						if((long)appPossible.get("morning count")>0) 
+						retrievedMorningCount = (long)(checkCount.get("morning count"));
+						retrievedEveningCount = (long)(checkCount.get("evening count"));
+						//check morning count >0 if yes fix appointment if no then check
+						//evening count >0 if yes then fix appointment else return false
+						if(retrievedMorningCount>0) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
 							oneAppointment.put("Patient Name", patientName);
-							oneAppointment.put("Date", getDate());
-							//count decrease
-							updatedCount = (long) appPossible.get("morning count");
-							updatedAppPossible.put("morning count", (updatedCount-1));
-							updatedAppPossible.put("evening count", (long)(appPossible.get("evening count")));
-
+							oneAppointment.put("Date",getDate());
+							
+							if(fileCreationResult) 
+							{
+								fixAppointment.add(oneAppointment);
+								Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",fixAppointment);
+							}
+							else 
+							{
+								Utility.fileReadingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",oneAppointment);
+							}
+							//then decrease morning count and keep evening count as it is
+							checkCount.put("Name", doctorName);
+							checkCount.put("Availability", "Both");
+							checkCount.put("morning count", (retrievedMorningCount-1));
+							checkCount.put("evening count", retrievedEveningCount);
+							appointmentCount.set(i, checkCount);
+							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
+							return true;
 						}
-						else if((long)appPossible.get("evening count")>0)
+						else if(retrievedEveningCount>0) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
 							oneAppointment.put("Patient Name", patientName);
-							oneAppointment.put("Date", getDate());
-							//count decrease
-							updatedCount = (long) appPossible.get("evening count");
-							updatedAppPossible.put("evening count", (updatedCount-1));
-							updatedAppPossible.put("morning count", (long)(appPossible.get("morning count")));
+							oneAppointment.put("Date",getDate());
+							
+							if(fileCreationResult) 
+							{
+								fixAppointment.add(oneAppointment);
+								Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",fixAppointment);
+							}
+							else 
+							{
+								Utility.fileReadingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",oneAppointment);
+							}
+							//decrease evening count and keep morning count as it is
+							checkCount.put("Name", doctorName);
+							checkCount.put("Availability", "Both");
+							checkCount.put("morning count", retrievedMorningCount);
+							checkCount.put("evening count", (retrievedEveningCount-1));
+							appointmentCount.set(i, checkCount);
+							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
+							return true;
 						}
 						else 
 						{
-							//morning count and evening count assign to 5 again
-							updatedAppPossible.put("morning count", 5);
-							updatedAppPossible.put("evening count", 5);
+							//reassign morning and evening count to 5 and return false
+							checkCount.put("Name", doctorName);
+							checkCount.put("Availability", "Both");
+							checkCount.put("morning count", 5);
+							checkCount.put("evening count", 5);
+							appointmentCount.set(i, checkCount);
+							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return false;
 						}
-						updatedAppPossible.put("Name", (String)(appPossible.get("Name")));
-						updatedAppPossible.put("Name", (String)(appPossible.get("Availability")));
-						//writing updated count into file
-						updatedAppointmentCount.add(updatedAppPossible);
-						Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json", updatedAppointmentCount);
 					}
-					
-					if(fileCreationResult) 
-					{
-						appointments.add(oneAppointment);
-						Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/Appointment.json", appointments);
-					}
-					else 
-					{
-						Utility.fileReadingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/Appointment.json", oneAppointment);
-					}
-				}
-				else 
-				{
-					updatedAppPossible = (JSONObject) appointmentCount.get(i);
-					updatedAppointmentCount.add(updatedAppPossible);
 				}
 			}
 		} 
@@ -269,32 +324,186 @@ public class CliniqueManagementImplementation
 		{
 			e.printStackTrace();
 		}
-		
-		if(type.equals("firstTry")) 
-		{
-			//doctor name then its count should be >0
-			//then fix appointment
-		}
-		else if(type.equals("!firstTry"))
-		{
-			
-		}
-		
 		return false;
 	}
 	
+	/**
+	 * the method fix the appointment for the patient when the doctor 
+	 * is not available for the current day. 
+	 * 
+	 * @param doctorName name of the doctor
+	 * @param patientName name of the patient 
+	 * @param date the date on which the patient want the treatment
+	 * @return true when the appointment is booked else false
+	 */
+	public static boolean isAppointmentAvailableForNextDay(String doctorName,String patientName,String date)
+	{
+		//the whole purpose of writing this method is to get date as a input from the user.
+		//the patient is not able get an appointment because count was 0 so here we will assign him appointment
+		//count is already re assign to 5 by the last else part.
+		//so directly assign him appointment
+		//then decrease count that's it
+		File file = new File("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json");
+		boolean fileCreationResult =false;
+		
+		JSONParser parser = new JSONParser();
+		JSONArray fixAppointment = new JSONArray(); //appointment.json
+		JSONObject oneAppointment = new JSONObject(); //writing the one object into JSON array
+		long retrievedMorningCount; long retrievedEveningCount;
+		try 
+		{
+			JSONArray appointmentCount = (JSONArray) parser.parse(new FileReader("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json"));
+			for(int i=0;i<appointmentCount.size();i++) 
+			{
+				JSONObject checkCount = (JSONObject) appointmentCount.get(i);
+				if(doctorName.equals((String)(checkCount.get("Name")))) 
+				{
+					fileCreationResult = file.createNewFile();
+					//fix  appointment
+					oneAppointment.put("Doctor Name", doctorName);
+					oneAppointment.put("Patient Name", patientName);
+					oneAppointment.put("Date", date);
+					
+					if(fileCreationResult) 
+					{
+						fixAppointment.add(oneAppointment);
+						Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",fixAppointment);
+					}
+					else 
+					{
+						Utility.fileReadingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json",oneAppointment);
+					}
+					//decrease count 
+					checkCount.put("Name", doctorName);
+					if("AM".equals((String)(checkCount.get("Availability")))) 
+					{
+						checkCount.put("Availability","AM");
+						retrievedMorningCount = (long)(checkCount.get("morning count"));
+						checkCount.put("morning count", (retrievedMorningCount-1));
+					}
+					else if("PM".equals((String)(checkCount.get("Availability"))))
+					{
+						checkCount.put("Availability","PM");
+						retrievedEveningCount = (long)(checkCount.get("evening count"));
+						checkCount.put("evening count", (retrievedEveningCount-1));
+					}
+					else 
+					{
+						checkCount.put("Availability","Both");
+						retrievedMorningCount = (long)(checkCount.get("morning count"));
+						checkCount.put("morning count", (retrievedMorningCount-1));
+						retrievedEveningCount = (long)(checkCount.get("evening count"));
+						checkCount.put("evening count", retrievedEveningCount);
+					}
+					appointmentCount.set(i, checkCount);
+					Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
+					return true;
+				}	
+			}
+		} 
+		catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static void getReport() 
+	{
+		JSONParser parser = new JSONParser();
+		
+		try 
+		{
+			JSONArray appointments = (JSONArray) parser.parse(new FileReader("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json"));
+			for(int i=0;i<appointments.size();i++) 
+			{
+				JSONObject appointment = (JSONObject) appointments.get(i);
+				printReport(appointment);
+			}
+		} 
+		catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
+	public static void printReport(JSONObject appointment) 
+	{
+		System.out.println("Doctor Name : "+(String)(appointment.get("Doctor Name")));
+		System.out.println("Patient Name : "+(String)(appointment.get("Patient Name")));
+		System.out.println("Date : "+(String)(appointment.get("Date")));
+		System.out.println();
+	}
 	
-	
-	
-	
-	
+	/**
+	 * the static variable HIGH is used to store the highest element from the array
+	 */
+	static int HIGH = 0;
+	/**
+	 * the static variable POPULAR is used to get the maximum number of times occurred element from list
+	 */
+	static int POPULAR = 0;
+	public static String getMaximumValue(String path,String name) 
+	{
+		//to store the value names
+		ArrayList<String> value = new ArrayList<String>();
+		
+		JSONParser parser = new JSONParser();
+		
+		try 
+		{
+			JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(path));
+			
+			for(int i=0;i<jsonArray.size();i++) 
+			{
+				JSONObject oneValue = (JSONObject) jsonArray.get(i);
+				value.add((String) oneValue.get(name));
+			}
+			//to store non duplicate doctor names 
+			LinkedHashSet<String> nonDuplicateValue = new LinkedHashSet<String>(value);
+			int[] noofTimes = new int[nonDuplicateValue.size()]; //reference array to store the doctor count
+			//finding the doctor count
+			int count = 0;
+			Iterator<String> iterator = nonDuplicateValue.iterator();
+			while(iterator.hasNext()) 
+			{
+				String doctor = iterator.next();
+				for(int j=0;j<value.size();j++) 
+				{
+					if(value.get(j).equals(doctor))
+					{
+						noofTimes[count]++;
+					}
+				}
+				count++;
+			}
+			//finding the doctor who handled most patients
+			for(int i=0;i<noofTimes.length;i++) 
+			{
+				if(noofTimes[i]>HIGH) 
+				{
+					HIGH = noofTimes[i];
+					POPULAR = i;
+				}
+			}
+			//converting the set into arraylist to get the element easily.
+			ArrayList<String> popularity = new ArrayList<String>(nonDuplicateValue);
+			return popularity.get(POPULAR);
+			
+		} 
+		catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 	public static String getDate() 
 	{
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		Date dateobj = new Date();
 		String currentDate = dateFormat.format(dateobj);
 		return currentDate;
