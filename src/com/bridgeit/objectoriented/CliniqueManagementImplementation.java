@@ -508,16 +508,5 @@ public class CliniqueManagementImplementation
 		String currentDate = dateFormat.format(dateobj);
 		return currentDate;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 }

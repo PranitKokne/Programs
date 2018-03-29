@@ -1,3 +1,21 @@
+/**
+ * Purpose :This program is used to manage a list of Doctors associated with the clinique.
+ * 			This also manages the list of patients who use the clinique.
+ * 			It manages Doctors by Name,Id,Specialization and Availability(AM,PM or both).
+ * 			It manages Patients by Name, ID, Mobile Number and Age. 
+ * 			The Program allows patient to search Doctor by name,id,Specialization or Availability.
+ * 			The programs allows patients to take appointment with the doctor.A doctor at  
+ * 			any availability time can see only 5 patients. 
+ * 			If exceeded the patient can take appointment at different date or availability time.
+ * 			It also print the patient doctor report,popular specialization and popular doctor.
+ * 			
+ * 
+ * @author Pranit_Kokne
+ * @version 1.0
+ * @since 28-03-2018
+ *
+ */
+
 package com.bridgeit.objectoriented;
 
 import com.bridgeit.utility.Utility;
