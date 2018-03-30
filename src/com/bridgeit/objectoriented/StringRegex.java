@@ -23,7 +23,7 @@ public class StringRegex {
 	public static void main(String[] args) 
 	{
 		Utility util = new Utility();
-		
+		String validation;
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		
@@ -43,6 +43,10 @@ public class StringRegex {
 		
 		System.out.print("Enter your mobile number : ");
 		information[2] = util.inputStringLine();
+		
+		
+		
+		
 		
 		for(int i=0;i<information.length;i++) 
 		{
