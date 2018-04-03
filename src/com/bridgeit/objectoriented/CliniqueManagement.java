@@ -111,9 +111,8 @@ public class CliniqueManagement {
 					String response = util.inputString();
 					if(response.equals("yes")) 
 					{
-						System.out.print("Enter the date : ");
-						String date = util.inputString();
-						appointmentResult = CliniqueManagementImplementation.isAppointmentAvailableForNextDay(doctorName, patientName,date);
+						System.out.println("Booking your appointment for tommorrow");
+						appointmentResult = CliniqueManagementImplementation.isAppointmentAvailableForNextDay(doctorName, patientName);
 						if(appointmentResult) 
 						{
 							System.out.println(patientName+" your appointment is fixed.");

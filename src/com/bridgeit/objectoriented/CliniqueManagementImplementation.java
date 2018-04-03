@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -136,7 +137,8 @@ public class CliniqueManagementImplementation
 		System.out.println();
 	}
 	
-	
+	//"/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json"
+	//"/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json"
 	/**
 	 * the method fix the appointment for the patient for the current day.
 	 * 
@@ -169,8 +171,8 @@ public class CliniqueManagementImplementation
 					if("AM".equals((String)(checkCount.get("Availability")))) 
 					{
 						retrievedMorningCount = (long)(checkCount.get("morning count"));
-						//check morning count if it is >0 then only fix appointment
-						if(retrievedMorningCount>0) 
+						//check morning count if it is >0 then only fix appointment for the current date
+						if(retrievedMorningCount>0 && ((String)(checkCount.get("Date"))).equals(getDate())) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
@@ -194,16 +196,18 @@ public class CliniqueManagementImplementation
 							checkCount.put("Name", doctorName);
 							checkCount.put("Availability", "AM");
 							checkCount.put("morning count", (retrievedMorningCount-1));
+							checkCount.put("Date", getDate());
 							appointmentCount.set(i, checkCount);
 							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return true;
 						}
-						else 
+						else if((long)checkCount.get("morning count") == 0)
 						{
 							//reassign morning count to 5 and return false
 							checkCount.put("Name", doctorName);
 							checkCount.put("Availability", "AM");
 							checkCount.put("morning count", 5);
+							checkCount.put("Date", getNextDate(getDate()));
 							appointmentCount.set(i, checkCount);
 							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return false;
@@ -213,7 +217,7 @@ public class CliniqueManagementImplementation
 					{
 						retrievedEveningCount =(long)(checkCount.get("evening count"));
 						//check evening count if it is >0 then only fix appointment
-						if(retrievedEveningCount>0) 
+						if(retrievedEveningCount>0 && ((String)(checkCount.get("Date"))).equals(getDate())) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
@@ -233,16 +237,18 @@ public class CliniqueManagementImplementation
 							checkCount.put("Name", doctorName);
 							checkCount.put("Availability", "PM");
 							checkCount.put("evening count", (retrievedEveningCount-1));
+							checkCount.put("Date", getDate());
 							appointmentCount.set(i, checkCount);
 							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return true;
 						}
-						else 
+						else if((long)checkCount.get("evening count") == 0)
 						{
 							//reassign evening count to 5 and return false
 							checkCount.put("Name", doctorName);
 							checkCount.put("Availability", "PM");
 							checkCount.put("evening count", 5);
+							checkCount.put("Date", getNextDate(getDate()));
 							appointmentCount.set(i, checkCount);
 							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return false;
@@ -255,7 +261,7 @@ public class CliniqueManagementImplementation
 						retrievedEveningCount = (long)(checkCount.get("evening count"));
 						//check morning count >0 if yes fix appointment if no then check
 						//evening count >0 if yes then fix appointment else return false
-						if(retrievedMorningCount>0) 
+						if(retrievedMorningCount>0 && ((String)(checkCount.get("Date"))).equals(getDate())) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
@@ -276,11 +282,12 @@ public class CliniqueManagementImplementation
 							checkCount.put("Availability", "Both");
 							checkCount.put("morning count", (retrievedMorningCount-1));
 							checkCount.put("evening count", retrievedEveningCount);
+							checkCount.put("Date", getDate());
 							appointmentCount.set(i, checkCount);
 							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return true;
 						}
-						else if(retrievedEveningCount>0) 
+						else if(retrievedEveningCount>0 && ((String)(checkCount.get("Date"))).equals(getDate())) 
 						{
 							//fix appointment
 							oneAppointment.put("Doctor Name", doctorName);
@@ -301,23 +308,26 @@ public class CliniqueManagementImplementation
 							checkCount.put("Availability", "Both");
 							checkCount.put("morning count", retrievedMorningCount);
 							checkCount.put("evening count", (retrievedEveningCount-1));
+							checkCount.put("Date", getDate());
 							appointmentCount.set(i, checkCount);
 							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return true;
 						}
-						else 
+						else if((long)checkCount.get("evening count") == 0 && (long)checkCount.get("morning count") == 0)
 						{
 							//reassign morning and evening count to 5 and return false
 							checkCount.put("Name", doctorName);
 							checkCount.put("Availability", "Both");
 							checkCount.put("morning count", 5);
 							checkCount.put("evening count", 5);
+							checkCount.put("Date", getNextDate(getDate()));
 							appointmentCount.set(i, checkCount);
 							Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 							return false;
 						}
 					}
 				}
+				
 			}
 		} 
 		catch (IOException | ParseException e) 
@@ -326,7 +336,6 @@ public class CliniqueManagementImplementation
 		}
 		return false;
 	}
-	
 	/**
 	 * the method fix the appointment for the patient when the doctor 
 	 * is not available for the current day. 
@@ -336,12 +345,12 @@ public class CliniqueManagementImplementation
 	 * @param date the date on which the patient want the treatment
 	 * @return true when the appointment is booked else false
 	 */
-	public static boolean isAppointmentAvailableForNextDay(String doctorName,String patientName,String date)
+	public static boolean isAppointmentAvailableForNextDay(String doctorName,String patientName)
 	{
-		//the whole purpose of writing this method is to get date as a input from the user.
+		//the whole purpose of writing this method is to give next day appointment to the user.
 		//the patient is not able get an appointment because count was 0 so here we will assign him appointment
 		//count is already re assign to 5 by the last else part.
-		//so directly assign him appointment
+		//so directly assign him appointment for the next day
 		//then decrease count that's it
 		File file = new File("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json");
 		boolean fileCreationResult =false;
@@ -362,7 +371,7 @@ public class CliniqueManagementImplementation
 					//fix  appointment
 					oneAppointment.put("Doctor Name", doctorName);
 					oneAppointment.put("Patient Name", patientName);
-					oneAppointment.put("Date", date);
+					oneAppointment.put("Date", getNextDate(getDate()));
 					
 					if(fileCreationResult) 
 					{
@@ -395,6 +404,7 @@ public class CliniqueManagementImplementation
 						retrievedEveningCount = (long)(checkCount.get("evening count"));
 						checkCount.put("evening count", retrievedEveningCount);
 					}
+					checkCount.put("Date", getNextDate(getDate()));
 					appointmentCount.set(i, checkCount);
 					Utility.fileWritingInJSON("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointmentCount.json",appointmentCount);
 					return true;
@@ -407,6 +417,7 @@ public class CliniqueManagementImplementation
 		}
 		return false;
 	}
+
 	
 	public static void getReport() 
 	{
@@ -508,5 +519,23 @@ public class CliniqueManagementImplementation
 		String currentDate = dateFormat.format(dateobj);
 		return currentDate;
 	}
-		
+	
+	public static String getNextDate(String currentDate) 
+	{
+		 String nextDate = "";
+	        try 
+	        {
+	            Calendar today = Calendar.getInstance();
+	            DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+	            Date date = format.parse(currentDate);
+	            today.setTime(date);
+	            today.add(Calendar.DAY_OF_YEAR, 1);
+	            nextDate = format.format(today.getTime());
+	        } 
+	        catch (Exception e) 
+	        {
+	            return nextDate;
+	        }
+	        return nextDate;
+	}
 }
