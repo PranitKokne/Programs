@@ -11,7 +11,6 @@
 
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class FlipCoin
@@ -29,11 +28,11 @@ public class FlipCoin
 	public static void main(String[] args) 
 	{
 		
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		while(FLAG) 
 		{
 			System.out.print("Enter the number of times you want to flip coin :");
-			int times = scanner.nextInt();
+			int times = util.integerInput();
 			if(times>0)
 			{
 				//using static function of Utility 
@@ -41,8 +40,5 @@ public class FlipCoin
 				FLAG=false;
 			}
 		}
-		scanner.close();
-
 	}
-
 }

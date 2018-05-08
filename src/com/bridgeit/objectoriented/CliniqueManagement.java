@@ -38,7 +38,7 @@ public class CliniqueManagement {
 		
 		String doctorName; int doctorId; String specialization; String time;
 		boolean flag = true;
-		boolean appointmentResult;
+		boolean appointmentResult;String popularDoctor;
 		boolean result;
 		while(flag) 
 		{
@@ -133,12 +133,14 @@ public class CliniqueManagement {
 				break;
 				
 			case 7 : 
-				String popularSpecialization = CliniqueManagementImplementation.getMaximumValue("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/Doctors.json", "Specialization");
+				popularDoctor = CliniqueManagementImplementation.getMaximumValue("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json","Doctor Name");
+				String popularSpecialization = CliniqueManagementImplementation.popularSpecialization("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/Doctors.json",popularDoctor);
 				System.out.println("The popular specialization is "+popularSpecialization);
 				break;
 				
 			case 8 : 
-				String popularDoctor = CliniqueManagementImplementation.getMaximumValue("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json","Doctor Name");
+				popularDoctor = CliniqueManagementImplementation.getMaximumValue("/home/bridgeit/Pranit/Programs/JSONFiles/clinique/appointment.json","Doctor Name");
+				
 				System.out.println("The popular doctor of the clinique is "+popularDoctor);
 				break;
 				

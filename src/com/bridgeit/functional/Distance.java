@@ -12,7 +12,6 @@
 
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class Distance 
@@ -22,13 +21,13 @@ public class Distance
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		
 		System.out.print("Enter the value of x :");
-		int x = scanner.nextInt();
+		int x = util.integerInput();
 		
 		System.out.print("Enter the value of y :");
-		int y = scanner.nextInt();
+		int y = util.integerInput();
 		
 		//using the static function of Utility.
 		Utility.euclideanDistance(x,y);

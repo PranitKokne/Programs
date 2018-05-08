@@ -11,7 +11,6 @@
 
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class LeapYear {
@@ -23,13 +22,13 @@ public class LeapYear {
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		boolean flag = true;
 		while(flag)
 		{
 			//accepting the year as a input
 			System.out.println("Enter the valid year...");
-			int year = scanner.nextInt();
+			int year = util.integerInput();
 			
 			//finding its length 
 			int length = Integer.toString(year).length();
@@ -40,8 +39,5 @@ public class LeapYear {
 				flag = false;
 			}
 		}		
-		
-
 	}
-
 }

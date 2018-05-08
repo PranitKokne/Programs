@@ -1,6 +1,13 @@
-package com.bridgeit.functional;
+/**
+ * Purpose :The program prints the Nth harmonic number.
+ * 			 
+ * @author Pranit_Kokne
+ * @version 1.0
+ * @since 05-03-2018
+ *
+ */
 
-import java.util.Scanner;
+package com.bridgeit.functional;
 
 import com.bridgeit.utility.Utility;
 
@@ -11,11 +18,11 @@ public class HarmonicNumber {
 	public static void main(String[] args) 
 	{
 		boolean flag = true;
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		while(flag) 
 		{
 			System.out.println("Enter the value of N :");
-			int N = scanner.nextInt();
+			int N = util.integerInput();
 			if(N != 0) 
 			{
 				Utility.harmonicValue(N); 

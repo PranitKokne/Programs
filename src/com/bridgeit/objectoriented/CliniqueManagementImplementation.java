@@ -538,4 +538,30 @@ public class CliniqueManagementImplementation
 	        }
 	        return nextDate;
 	}
+	
+	public static String popularSpecialization(String path,String popularDoctor) 
+	{
+		JSONParser parser = new JSONParser();
+		
+		try 
+		{
+			JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(path));
+			
+			for(int i=0;i<jsonArray.size();i++) 
+			{
+				JSONObject oneValue = (JSONObject) jsonArray.get(i);
+				if(popularDoctor.equals((String)oneValue.get("Name"))) 
+				{
+					String temp = (String)oneValue.get("Specialization");
+					return temp;
+				}
+			}
+			
+		} 
+		catch (IOException | ParseException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -1,39 +1,26 @@
+/**
+ * Purpose :The program asks the user to enter a number which is power of two
+ * 			then he asks the user to keep one number in mind(between 0 to powerOfTwo-1).
+ * 			and after the n iteration finds the number
+ * 
+ * @author Pranit_Kokne
+ *@version 1.0
+ *@since 05-03-2018
+ */
+
 package com.bridgeit.algorithm;
-import java.util.Scanner;
 
 import com.bridgeit.utility.Utility;
+
 public class FindNumber
 {
-	public static int binarySearch(int[] sort, int n,int fe) 
-	{
-		int start = 0;
-		int end = n-1;
-		while(start<=end) 
-		{
-			int mid = (start+end)/2;
-			if(sort[mid]==fe) 
-			{
-				return mid;
-			}
-			else if(sort[mid]>fe) 
-			{
-				end = mid -1;
-			}
-			else 
-			{
-				start = mid+1;
-			}
-		}
-		return -1;
-	}
-	
 	public static void main(String[] args) 
 	{
 		int n=0;
 		int[] powerofTwo = {1,2,4,8,16,32,64,128,512};
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.print("Enter a number which is a power of 2 : ");
-		int size = scanner.nextInt();
+		int size = util.integerInput();
 		
 		int[] numbers = new int[size];
 		
@@ -46,7 +33,7 @@ public class FindNumber
 			System.out.print(ele+" ");
 		}
 		System.out.println("\nChoose a number between 0 and "+(size-1));
-		int secreatNumber = scanner.nextInt();
+		int secreatNumber = util.integerInput();
 		
 		//finding the value of n 
 		for(int i=0;i<powerofTwo.length;i++) 
@@ -63,24 +50,22 @@ public class FindNumber
 		while(n>1) 
 		{
 			System.out.println("your number is between "+first+" and "+middle1);
-			boolean lresponse = scanner.nextBoolean();
+			boolean lresponse = util.booleanInput();
 			System.out.println("your number is between "+(middle1+1)+" and "+last);
-			boolean rresponse = scanner.nextBoolean();
+			boolean rresponse = util.booleanInput();
 			if(lresponse) 
 			{
-				first=first;
 				last=middle1;
 				middle1=Utility.midCalculator(first,last);
 			}
-			else 
+			else if(rresponse)
 			{
 				first=middle1+1;
-				last=last;
 				middle1=Utility.midCalculator(first,last);
 			}
 			n--;
 		}
-		System.out.println("is this your number : "+binarySearch(numbers,numbers.length,secreatNumber));
+		System.out.println("is this your number : "+Utility.binarySearch(numbers,numbers.length,secreatNumber));
 	}
 
 }

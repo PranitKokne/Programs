@@ -11,7 +11,6 @@
 
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class Quadratic 
@@ -21,17 +20,17 @@ public class Quadratic
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		
 		//accpting the values of a b c from user
 		System.out.print("Enter a : ");
-		int a = scanner.nextInt();
+		int a = util.integerInput();
 		
 		System.out.print("Enter b : ");
-		int b = scanner.nextInt();
+		int b = util.integerInput();
 		
 		System.out.print("Enter c : ");
-		int c = scanner.nextInt();
+		int c = util.integerInput();
 		
 		//using the static method of Utility
 		Utility.roots(a,b,c);

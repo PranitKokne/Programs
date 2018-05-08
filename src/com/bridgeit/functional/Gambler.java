@@ -14,24 +14,24 @@
  ******************************************************************************/
 
 package com.bridgeit.functional;
-import java.util.Scanner;
-import java.util.Random;
+
 import com.bridgeit.utility.*;
+;
 public class Gambler
 { 
 	
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		
 		System.out.print("Enter the Stake : ");
-		int stake = scanner.nextInt();
+		int stake = util.integerInput();
 		
 		System.out.print("Enter the Goal you want to reach  : ");
-		int goal = scanner.nextInt();
+		int goal = util.integerInput();
 		
 		System.out.print("Enter the number of times you want to play : ");
-		int noofTimes = scanner.nextInt();
+		int noofTimes = util.integerInput();
 		
 		//using the static function of Utility
 		Utility.outcome(stake,goal,noofTimes);

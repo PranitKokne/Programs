@@ -12,7 +12,6 @@
 
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class PowerofTwo {
@@ -22,9 +21,9 @@ public class PowerofTwo {
 	 * less than 31
 	 */
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.println("Enter the number : ");
-		int number = scanner.nextInt();
+		int number = util.integerInput();
 		if(number>-1 && number<31)
 		{
 			//using the static function of Utility

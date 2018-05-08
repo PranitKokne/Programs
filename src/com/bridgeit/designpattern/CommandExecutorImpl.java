@@ -10,5 +10,4 @@ public class CommandExecutorImpl implements CommandExecutor {
 		Runtime.getRuntime().exec(cmd);
 		System.out.println("'" + cmd + "' command executed.");
 	}
-
 }

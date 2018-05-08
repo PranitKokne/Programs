@@ -13,8 +13,6 @@
 
 package com.bridgeit.algorithm;
 
-import java.util.Scanner;
-
 import com.bridgeit.utility.Utility;
 
 public class Loan 

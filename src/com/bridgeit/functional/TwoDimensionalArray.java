@@ -10,9 +10,9 @@
  *  @since   05-03-2018
  *
  ******************************************************************************/
+
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class TwoDimensionalArray
@@ -23,20 +23,21 @@ public class TwoDimensionalArray
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		boolean flag = true;
+		Utility util = new Utility();
 		System.out.println("Press 1 for integer array");
 		System.out.println("Press 2 for double array");
 		System.out.println("Press 3 for boolean array");
 		System.out.println("Press any key to  exit");
 
-		while(true) 
+		while(flag) 
 		{
 			System.out.print("Enter your choice : ");
-			int choice = scanner.nextInt();
+			int choice = util.integerInput();
 			System.out.print("Enter number of rows : ");
-			int rows = scanner.nextInt();
+			int rows = util.integerInput();
 			System.out.print("Enter number of columns : ");
-			int cols = scanner.nextInt();
+			int cols = util.integerInput();
 			
 			switch(choice) 
 			{
@@ -47,7 +48,7 @@ public class TwoDimensionalArray
 					System.out.println("Enter the elements of "+(i+1)+" row ");
 					for(int j=0;j<rows;j++) 
 					{
-						intarray[i][j]=scanner.nextInt();
+						intarray[i][j]=util.integerInput();
 					}
 				}
 				//using the static function of Utility
@@ -61,7 +62,7 @@ public class TwoDimensionalArray
 					System.out.println("Enter the elements of "+(i+1)+" row ");
 					for(int j=0;j<rows;j++) 
 					{
-						doublearray[i][j]=scanner.nextDouble();
+						doublearray[i][j]=util.doubleInput();
 					}
 				}
 				//using the static function of Utility
@@ -75,7 +76,7 @@ public class TwoDimensionalArray
 					System.out.println("Enter the elements of "+(i+1)+" row ");
 					for(int j=0;j<rows;j++) 
 					{
-						booleanarray[i][j]=scanner.nextBoolean();
+						booleanarray[i][j]=util.booleanInput();
 					}
 				}
 				//using the static function of Utility
@@ -83,7 +84,8 @@ public class TwoDimensionalArray
 				break;
 				
 			default :
-					System.exit(0);
+				flag = false;
+				System.exit(0);
 			
 			}
 			

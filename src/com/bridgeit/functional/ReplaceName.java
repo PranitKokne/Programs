@@ -11,7 +11,6 @@
 
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class ReplaceName 
@@ -21,12 +20,12 @@ public class ReplaceName
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		while(true)
 		{
 			//taking the proper name from user as a input
 			System.out.println("Enter Your Name : ");
-			String username = scanner.nextLine();
+			String username = util.inputStringLine();
 			//checking user name contains atleast 3 character or not
 			if(username.length()>=3)
 			{

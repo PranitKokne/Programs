@@ -1,7 +1,8 @@
 /******************************************************************************
  *  
  *
- *  Purpose: the program perform the merge sorting on the list of strings.
+ *  Purpose:the program sort the list containing the string object by using
+ *  		the merge sort algorithm.
  *
  *  @author  Pranit_Kokne
  *  @version 1.0
@@ -10,8 +11,8 @@
  ******************************************************************************/
 
 package com.bridgeit.algorithm;
+
 import com.bridgeit.utility.*;
-import java.util.Scanner;
 
 public class MergeSortString 
 {

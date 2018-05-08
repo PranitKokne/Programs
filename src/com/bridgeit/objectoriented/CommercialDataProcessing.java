@@ -177,6 +177,7 @@ public class CommercialDataProcessing
 				result = StockAccount.authentication(accountNo);
 				if(result) 
 				{
+					
 					System.out.print("Enter the company name whose share you want to sell : ");
 					shareName = util.inputString();
 					System.out.print("Enter the number of shares you want to sell : ");

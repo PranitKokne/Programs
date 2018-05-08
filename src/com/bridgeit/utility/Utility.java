@@ -10,23 +10,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import com.bridgeit.datastructure.Customer;
-import com.bridgeit.datastructure.Queue;
 import com.bridgeit.datastructure.MyLinkedList;
 import com.bridgeit.datastructure.MyQueue;
 import com.bridgeit.datastructure.MyStack;
-
 
 public class Utility 
 {
@@ -86,6 +81,18 @@ public class Utility
 			System.out.println(e.toString());
 		}
 		return 0.0f;
+	}
+	public boolean booleanInput() 
+	{
+		try 
+		{
+			return scanner.nextBoolean();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		return false;
 	}
 	
 	 public String inputStringLine() 
@@ -473,14 +480,13 @@ public class Utility
 	{
 		long startTime=0l;
 		long stopTime=0l;
-		boolean flag = true;
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		boolean flag1 = true;
 		while(flag1)
 		{
 			System.out.println("Press any key to exit");
 			System.out.print("Press 1 to start the stop watch :");
-			int start = scanner.nextInt();
+			int start = util.integerInput();
 			if(start==1) 
 			{
 				startTime = System.currentTimeMillis();
@@ -490,7 +496,7 @@ public class Utility
 				while(flag2) 
 				{
 					System.out.print("Press 2 To stop the watch : ");
-					int stop=scanner.nextInt();
+					int stop=util.integerInput();
 					
 					
 					if(stop==2) 
@@ -502,9 +508,8 @@ public class Utility
 					
 				}
 				System.out.println("Elapsed time : "+(stopTime-startTime)+" ms");
-				flag=false;
 			}
-			else 
+			else
 			{
 				flag1 = false;
 			}
@@ -828,7 +833,7 @@ public class Utility
 	
 	
 	/**
-	 * function mergeSort merge the two unsorted array into a third array
+	 * function mergeSort merge the two unsorted array into a third sorted array
 	 * 
 	 * @param i holds the index of left array
 	 * @param j holds the index of right array
@@ -875,7 +880,7 @@ public class Utility
 	 * 
 	 * @param lsize to find the left array size
 	 * @param rsize to find the right array size
-	 * @param n
+	 * @param n the size of the array
 	 */
 	public static void divideMerge(String[] array ,int n) 
 	{
@@ -893,6 +898,7 @@ public class Utility
 		//creating left and right array
 		left = new String[lsize];
 		right = new String[rsize];
+		//inserting the elements in the left and right array
 		for(int i=0;i<=mid-1;i++) 
 		{
 			left[i]=array[i];
@@ -1452,7 +1458,6 @@ public class Utility
 		int j = 0; 
 		int range = 100;
 		int columnCount = 0;
-		int primeNumbers = 0;
 		
 		for(int i=0;i<10;i++) 
 		{
@@ -1464,7 +1469,6 @@ public class Utility
 					if(primeNumber>1) 
 					{
 						columnCount++;
-						primeNumbers++;
 					}
 				}
 			}

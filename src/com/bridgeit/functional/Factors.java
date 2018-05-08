@@ -14,7 +14,6 @@ package com.bridgeit.functional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 public class Factors
 {
@@ -27,9 +26,9 @@ public class Factors
 	{
 		//define the dynamic array to store the prime factorization of a number 
 		List<Integer> primeFactorization = new ArrayList<Integer>();
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		System.out.println("Enter the number");
-		int number = scanner.nextInt();
+		int number = util.integerInput();
 		int result = Utility.findPrime(number);
 		int num = number;
 		//checking entered number is prime or not 

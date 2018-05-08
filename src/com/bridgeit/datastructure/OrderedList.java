@@ -9,7 +9,6 @@ public class OrderedList {
 
 	public static void main(String[] args) 
 	{
-		int count = 0;
 		Utility util = new Utility();
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		

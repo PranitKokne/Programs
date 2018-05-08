@@ -11,7 +11,6 @@
  ******************************************************************************/
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 public class SumIsZero 
@@ -22,18 +21,18 @@ public class SumIsZero
 	 */
 	public static void main(String[] args) 
 	{
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		
 		//accpting the size of an array
 		System.out.print("Enter the size of an array : ");
-		int size = scanner.nextInt();
+		int size = util.integerInput();
 		int[] number = new int[size];
 		
 		//inserting the values into array
 		System.out.println("insert "+size+" integers into : ");
 		for(int i=0;i<number.length;i++) 
 		{
-			number[i]=scanner.nextInt();
+			number[i]= util.integerInput();
 		}
 		
 		//using the static function of Utility

@@ -59,7 +59,6 @@ public class PrimePalindromeAnagram
 				}
 			}
 			System.out.println(primePalindrome);
-			int count = 0;
 			//finding prime anagram numbers and adding it to list
 			for(int i=0;i<primeNumbers.size();i++) 
 			{

@@ -10,7 +10,6 @@
 
 package com.bridgeit.datastructure;
 
-import java.util.ArrayList;
 import com.bridgeit.utility.Utility;
 
 public class PrimeAnagramIn2D 

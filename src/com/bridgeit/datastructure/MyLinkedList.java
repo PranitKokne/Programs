@@ -1,7 +1,5 @@
 package com.bridgeit.datastructure;
 
-
-
 public class MyLinkedList<T> 
 {
 	Node head;

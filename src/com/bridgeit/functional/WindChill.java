@@ -13,7 +13,6 @@
 
 package com.bridgeit.functional;
 
-import java.util.Scanner;
 import com.bridgeit.utility.Utility;
 
 
@@ -27,14 +26,14 @@ public class WindChill
 	public static void main(String[] args) 
 	{
 		boolean flag = true;
-		Scanner scanner = new Scanner(System.in);
+		Utility util = new Utility();
 		while(flag) 
 		{
 			System.out.println("Enter the value of temperature : ");
-			double t = scanner.nextDouble();
+			double t = util.doubleInput();
 			
 			System.out.println("Enter the value of velocity : ");
-			double v = scanner.nextDouble();
+			double v = util.doubleInput();
 			
 			if(t<50 && (v<120 && v>3)) 
 			{
